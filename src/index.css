@@ -3,3 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    direction: rtl;
+}
+
+.buttonOfForm{
+    @apply w-full flex justify-center bg-[#247D7B] text-white rounded-md py-2
+}
