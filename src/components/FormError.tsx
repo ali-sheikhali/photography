@@ -1,13 +1,15 @@
 import { FormikErrors, FormikProps } from "formik";
-interface props {
+import { T } from "react";
+// why T has red line???
+interface Props {
   title: keyof FormikErrors<T>;
   formik: FormikProps<T>; 
 }
-function FormError({ formik, title }:props) {
+function FormError({ formik, title }:Props) {
   return (
     <div className="relative">
       {formik.touched[title] && formik.errors[title] ? (
-        <div className="text-[12px] text-red-500 absolute -top-10">
+        <div className="text-[12px] text-red-500 absolute -top-4">
           {formik.errors[title]}
         </div>
       ) : null}

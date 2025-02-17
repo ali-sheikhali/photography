@@ -1,25 +1,21 @@
-import { useEffect, useState } from "react";
-import { useFormik } from "formik";
-import wideScreenBack from "../assets/wideBackImage.png";
-import FormFiled from "../components/FormFiled";
-import * as Yup from "yup";
-import FormError from "../components/FormError";
-import { Link } from "react-router-dom";
+import React from "react";
 import MainLogin from "../components/MainLogin";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import FormFiled from "../components/FormFiled";
+import FormError from "../components/FormError";
+import wideScreenBack from "../assets/wideBackImage.png";
 
 interface FormValue {
   email: string;
-  password: string;
 }
-function Login() {
+function ForgetPassword() {
   const validationSchema = Yup.object({
     email: Yup.string().required("لطفا ایمیل را وارد کنید."),
-    password: Yup.string().required("لطفا رمز را وارد کنید."),
   });
   const formik = useFormik<FormValue>({
     initialValues: {
       email: "",
-      password: "",
     },
     validationSchema,
     onSubmit: () => {},
@@ -39,29 +35,16 @@ function Login() {
             onBlur={formik.handleBlur}
           />
           <FormError title="email" formik={formik} />
-          <FormFiled
-            type="text"
-            name="password"
-            label="لطفا رمز خود را وارد کنید."
-            placeHolder="رمز"
-            onBlur={formik.handleBlur}
-
-          />
-          <FormError title="password" formik={formik} />
-          <Link to="/forget-password">
-            <p className="text-[#247D7B]">فراموشی رمز ورود</p>
-          </Link>
         </div>
         <button className="buttonOfForm" type="submit">
-         ورود
+          ادامه
         </button>
       </form>
       <figure className="hidden lg:block lg:w-6/12">
         <img src={wideScreenBack} alt="wide back" />
       </figure>
-      </MainLogin>
-
+    </MainLogin>
   );
 }
 
-export default Login;
+export default ForgetPassword;
