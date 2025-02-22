@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import wideScreenBack from "../assets/wideBackImage.png";
 import FormFiled from "../components/FormFiled";

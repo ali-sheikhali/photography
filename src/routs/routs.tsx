@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App";
 import Login from "../pages/Login";
 import ForgetPassword from "../pages/ForgetPassword";
-
+import Dashboard from "../pages/Dashboard"
 
 const router = createBrowserRouter([
     {
@@ -11,6 +11,7 @@ const router = createBrowserRouter([
         children:[
             {path: "/login" , element:<Login />},
             {path: "/forget-password" , element:<ForgetPassword />},
+            {path: "/dashboard" , element:<Dashboard />},
         ]
     }
 ])

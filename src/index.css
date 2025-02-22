@@ -3,7 +3,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face{
+    font-family: "iran-sans";
+    src: url("./assets/fonts/iransans/IRANSans-Medium-web.woff2") format("woff2"),
+     url("./assets/fonts/iransans/IRANSans-Medium-web.woff") format("woff"),
+     url("./assets/fonts/iransans/IRANSans-Medium-web.ttf") format("truetype");
+}
+@font-face{
+    font-family: "b-yekan";
+    src:url("./assets/fonts/B_Yekan/B_Yekan/Yekan.woff2") format("woff2"),
+    url("./assets/fonts/B_Yekan/B_Yekan/Yekan.woff") format("woff"),
+    url("./assets/fonts/B_Yekan/B_Yekan/Yekan.ttf") format("trueType"),
+}
 *{
+    /* font-family: "iran-sans", sans-serif; */
+    font-family: "b-yekan" , sans-serif;
     direction: rtl;
 }
 
