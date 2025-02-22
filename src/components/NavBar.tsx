@@ -8,11 +8,11 @@ function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
 
   // Close dropdown when clicking outside
-  const closeDropdown = (e) => {
-    if (!e.target.closest(".dropdown-container")) {
+  const closeDropdown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!(e.target as HTMLElement).closest(".dropdown-container")) {
       setIsOpen(false);
     }
-  };
+  }
 
   return (
     <div className="w-full bg-[#0A0A0A] text-white relative">

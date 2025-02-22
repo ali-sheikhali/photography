@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
+import Footer from '../components/Footer'
 
 function Dashboard() {
   return (
@@ -8,6 +9,7 @@ function Dashboard() {
         <div className='bg-[#1D1818] h-screen text-white'>
           agsdfg
         </div>
+        <Footer />
     </>
   )
 }
