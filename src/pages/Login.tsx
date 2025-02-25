@@ -48,7 +48,7 @@ function Login() {
           />
           <FormError title="password" formik={formik} />
           <Link to="/forget-password">
-            <p className="text-[#247D7B]">فراموشی رمز ورود</p>
+            <p className="text-[#247D7B] ">فراموشی رمز ورود</p>
           </Link>
         </div>
         <button className="buttonOfForm" type="submit">
