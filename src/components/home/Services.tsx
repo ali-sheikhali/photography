@@ -28,7 +28,7 @@ function Services() {
               alt="camera"
             />
             <h4 className="font-bold">عکس برداری</h4>
-            <p className="text-center text-sm md:w-6/12 mx-auto">
+            <p className="text-center text-sm md:w-8/12 mx-auto">
               عکس برداری از چهره ثبت لحظاتی خاص با ترکیب نور، رنگ و احساسات
               واقعی
             </p>

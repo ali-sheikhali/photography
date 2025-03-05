@@ -4,7 +4,7 @@ import music from "../../assets/music.mp3";
 function HeroHeader() {
   return (
     <div>
-      <div className="w-full my-8 relative">
+      <div className="w-full relative">
         <img
           className="w-full h-[230px] sm:h-[300px] md:h-[400px] lg:h-[600px] rounded-2xl"
           src={heroHeader}
