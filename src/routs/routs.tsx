@@ -4,6 +4,7 @@ import Login from "../pages/Login";
 import ForgetPassword from "../pages/ForgetPassword";
 import Dashboard from "../pages/Dashboard"
 import Home from "../pages/Home";
+import Details from "../pages/Details";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
             {path: "/forget-password" , element:<ForgetPassword />},
             {path: "/dashboard" , element:<Dashboard />},
             {path: "/home" , element:<Home />},
+            {path: "/details" , element:<Details />},
         ]
     }
 ])
