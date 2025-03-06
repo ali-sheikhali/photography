@@ -6,6 +6,7 @@ import TopPhotographers from "../components/home/TopPhotographers";
 import Comments from "../components/home/Comments";
 import CommentsSuggestions from "../components/home/CommentsSuggestions";
 import AboutUs from "../components/home/AboutUs";
+import Footer from "../components/home/Footer";
 
 function Home() {
   return (
@@ -24,6 +25,7 @@ function Home() {
           <AboutUs />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
