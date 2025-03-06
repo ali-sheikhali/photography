@@ -5,18 +5,27 @@ import instagram1 from "../../assets/instagram1.svg";
 import CostModal from "../CostModal";
 import BottomSheet from "@wldyslw/react-bottom-sheet"; // Import BottomSheet
 
-function NavBarHome() {
+interface Services {
+  scrollToSection?: {
+    work: () => void;
+  };
+}
+interface BottomSheetRef {
+  open: () => void;
+  close?: () => void;
+}
+function NavBarHome({ scrollToSection }: Services) {
   const [openMenu, setOpenMenu] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const bottomSheetRef = useRef<any>(null);
+  const bottomSheetRef = useRef<BottomSheetRef | null>(null);
 
   const handleClick = () => {
     console.log("log log");
 
     setOpenMenu(false);
     if (bottomSheetRef.current) {
-      bottomSheetRef.current.open();
+      bottomSheetRef.current?.open();
     }
   };
   useEffect(() => {
@@ -44,7 +53,12 @@ function NavBarHome() {
             <img src={menu} alt="menu" />
           </button>
           <div className="gap-4 hidden sm:flex">
-            <p>نمونه کارها</p>
+            <p
+              className="cursor-pointer"
+              onClick={() => scrollToSection?.work()}
+            >
+              نمونه کارها
+            </p>
             <p className="cursor-pointer" onClick={() => setOpenModal(true)}>
               لیست قیمت
             </p>
@@ -65,7 +79,9 @@ function NavBarHome() {
       >
         <div className="w-10/12 mx-auto flex flex-col gap-4 py-6">
           <p>نمونه کارها</p>
-          <p onClick={handleClick}>لیست قیمت</p>
+          <p className="cursor-pointer" onClick={handleClick}>
+            لیست قیمت
+          </p>
           <p>تماس با ما</p>
           <p>بلاگ</p>
         </div>

@@ -1,7 +1,10 @@
 import React from "react";
 import closeSquare from "../assets/close-square.svg";
-
-const CostModal = ({ setOpenModal , rounded }) => {
+interface CostModalProps {
+  setOpenModal: (value: boolean) => void; // Function that updates state
+  rounded?: boolean; // Optional boolean prop
+}
+const CostModal = ({ setOpenModal , rounded }:CostModalProps) => {
   const handleClick = () => {
     setOpenModal(false);
   };
