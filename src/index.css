@@ -3,27 +3,42 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face{
-    font-family: "iran-sans";
-    src: url("./assets/fonts/iransans/IRANSans-Medium-web.woff2") format("woff2"),
-     url("./assets/fonts/iransans/IRANSans-Medium-web.woff") format("woff"),
-     url("./assets/fonts/iransans/IRANSans-Medium-web.ttf") format("truetype");
+@font-face {
+  font-family: "iran-sans";
+  src: url("./assets/fonts/iransans/IRANSans-Medium-web.woff2") format("woff2"),
+    url("./assets/fonts/iransans/IRANSans-Medium-web.woff") format("woff"),
+    url("./assets/fonts/iransans/IRANSans-Medium-web.ttf") format("truetype");
 }
-@font-face{
-    font-family: "b-yekan";
-    src:url("./assets/fonts/B_Yekan/B_Yekan/Yekan.woff2") format("woff2"),
+@font-face {
+  font-family: "b-yekan";
+  src: url("./assets/fonts/B_Yekan/B_Yekan/Yekan.woff2") format("woff2"),
     url("./assets/fonts/B_Yekan/B_Yekan/Yekan.woff") format("woff"),
-    url("./assets/fonts/B_Yekan/B_Yekan/Yekan.ttf") format("trueType"),
+    url("./assets/fonts/B_Yekan/B_Yekan/Yekan.ttf") format("trueType");
 }
-*{
-    /* font-family: "iran-sans", sans-serif; */
-    font-family: "b-yekan" , sans-serif;
-    direction: rtl;
+* {
+  /* font-family: "iran-sans", sans-serif; */
+  font-family: "b-yekan", sans-serif;
+  direction: rtl;
 }
 
-.buttonOfForm{
-    @apply w-full flex justify-center bg-[#247D7B] text-white rounded-md py-2
+.buttonOfForm {
+  @apply w-full flex justify-center bg-[#247D7B] text-white rounded-md py-2;
 }
-.buttonOfSuggest{
-    @apply w-6/12 md:w-4/12 flex justify-center bg-[#247D7B] text-white rounded-md py-2
+.buttonOfSuggest {
+  @apply w-6/12 md:w-4/12 flex justify-center bg-[#247D7B] text-white rounded-md py-2;
+}
+
+.custom-pagination {
+  position: relative;
+  bottom: 0;
+  margin-top: 30px;
+}
+
+.swiper-pagination-bullet {
+  background-color: white !important;
+  opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #247d7b !important;
 }
