@@ -3,8 +3,9 @@ import HeroHeader from "../components/home/HeroHeader";
 import Services from "../components/home/Services";
 import ExampleOfWork from "../components/home/ExampleOfWork";
 import TopPhotographers from "../components/home/TopPhotographers";
-import Comments from "../components/home/Comments";
+// import Comments from "../components/home/Comments";
 import CommentsSuggestions from "../components/home/CommentsSuggestions";
+import AboutUs from "../components/home/AboutUs";
 
 function Home() {
   return (
@@ -20,6 +21,7 @@ function Home() {
         {/* <Comments /> */}
         <div className="w-11/12 mx-auto flex flex-col gap-20 ">
           <CommentsSuggestions />
+          <AboutUs />
         </div>
       </div>
     </div>
