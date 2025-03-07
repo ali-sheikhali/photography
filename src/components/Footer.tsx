@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div className='bg-[#0A0A0A] text-white w-full flex flex-col text-center gap-4 p-4 justify-center items-center'>
+    <div className='bg-[#1D1818] text-white w-full flex flex-col text-center gap-4 p-4 justify-center items-center'>
         <h1 className='font-bold text-2xl'>
         کوکورو
         </h1>

@@ -5,6 +5,7 @@ import ForgetPassword from "../pages/ForgetPassword";
 import Dashboard from "../pages/Dashboard"
 import Home from "../pages/Home";
 import Details from "../pages/Details";
+import Blogs from "../pages/Blogs";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
             {path: "/dashboard" , element:<Dashboard />},
             {path: "/home" , element:<Home />},
             {path: "/details" , element:<Details />},
+            {path: "/blogs" , element:<Blogs />},
         ]
     }
 ])
