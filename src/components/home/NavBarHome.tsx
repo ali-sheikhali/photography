@@ -3,7 +3,7 @@ import logo from "../../assets/logo.png";
 import menu from "../../assets/menu.svg";
 import instagram1 from "../../assets/instagram1.svg";
 import CostModal from "../CostModal";
-import BottomSheet from "@wldyslw/react-bottom-sheet"; // Import BottomSheet
+import BottomSheet from "@wldyslw/react-bottom-sheet";
 import { Link } from "react-router-dom";
 
 interface Services {
