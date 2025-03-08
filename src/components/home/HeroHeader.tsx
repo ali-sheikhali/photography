@@ -1,16 +1,20 @@
 import React from "react";
 import heroHeader from "../../assets/hero.jpg";
 import music from "../../assets/music.mp3";
+
 function HeroHeader() {
   return (
-    <div>
-      <div className="w-full relative">
-        <img
-          className="w-full h-[230px] sm:h-[300px] md:h-[400px] lg:h-[600px] rounded-2xl"
-          src={heroHeader}
-          alt="hero-header"
-        />
-        <audio className="w-11/12 absolute bottom-2  bg-transparent  " controls loop>
+    <div className="relative w-full">
+      {/* Background Image */}
+      <img
+        className="w-full h-[230px] sm:h-[300px] md:h-[400px] lg:h-[600px] rounded-2xl object-cover"
+        src={heroHeader}
+        alt="hero-header"
+      />
+
+      {/* Custom Audio Player */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 md:w-3/4 bg-black/50 backdrop-blur-md p-4 rounded-xl">
+        <audio className="w-full" controls loop>
           <source src={music} type="audio/mp3" />
           Your browser does not support the audio element.
         </audio>

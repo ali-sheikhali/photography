@@ -9,7 +9,7 @@ interface Blogs {
   image: string;
 }
 const Blogs = () => {
-  const blogs: Blogs = [
+  const blogs: Blogs[] = [
     {
       id: 1,
       title: "نکته طلایی برای عکاسی حرفه‌ای با موبایل",
@@ -50,7 +50,7 @@ const Blogs = () => {
               src={blog.image}
               alt="image"
             />
-            <div className="flex flex-col gap-6 md:w-6/12 md:h-[315px] leading-7 md:leading-10 overflow-hidden">
+            <div className="flex flex-col gap-4 md:w-6/12 md:h-[315px] leading-7 md:leading-10 overflow-hidden">
               <h3 className="font-semibold">{blog.title}</h3>
               <p>{blog.description}</p>
             </div>
