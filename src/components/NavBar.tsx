@@ -46,13 +46,15 @@ function NavBar() {
           {isOpen && (
             <ul className="absolute top-16 z-20 bg-[#171717] rounded-md p-4 md:right-0 -right-28 text-[#D4D4D4] w-80 shadow">
               <li className="flex items-center gap-3 border-b border-[#737373] p-4">
-                <figure>
+              <figure>
                   <img
                     className="rounded-full w-8 h-8"
                     src={profile}
                     alt="Profile"
                   />
                 </figure>
+              </li>
+              <li className="flex items-center gap-3 border-b border-[#737373] p-4">
                 <p>علی احمدی</p>
               </li>
               <li className="flex items-center gap-3 border-b border-[#737373] p-4">

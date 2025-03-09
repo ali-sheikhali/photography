@@ -8,26 +8,25 @@ import arrowDown from "../assets/arrow-down.svg";
 
 interface NewPhotoprapherProps {
   setOpenModal?: (value: boolean) => void;
+  bottomSheetRef?: React.RefObject<{ close?: () => void }>;
   title: string;
-    bottomSheetRef?: React.RefObject<{ close?: () => void }>;
-  
 }
 interface FormValue {
   image: string;
-  name: string;
+  genre: string;
   photographer: string;
 }
 
-const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotoprapherProps) => {
+const NewPhoto = ({ title, setOpenModal , bottomSheetRef }: NewPhotoprapherProps) => {
   const validationSchema = Yup.object({
     image: Yup.mixed().required("عکس را وارد کنید."),
-    name: Yup.string().required("نام را وارد کنید."),
+    genre: Yup.string().required("نوع را وارد کنید."),
     photographer: Yup.string().required("عکاس را انتخاب کنید."),
   });
   const formik = useFormik<FormValue>({
     initialValues: {
       image: "",
-      name: "",
+      genre: "",
       photographer: "",
     },
     validationSchema,
@@ -89,17 +88,27 @@ const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotopraphe
           />
         </div>
         <FormError title="image" formik={formik} />
-
-        <input
-          type="text"
-          name="name"
-          placeholder="نام عکاس"
-          value={formik.values.name}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          className="border-[#247D7B] border py-2 px-3 focus:outline-none placeholder:text-[#737373] rounded-md"
-        />
-        <FormError title="name" formik={formik} />
+        <div className="relative w-full">
+          <select
+            name="genre"
+            value={formik.values.genre}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={`appearance-none w-full focus:outline-none border border-[#247D7B] py-2 px-4 rounded-md bg-transparent 
+                    ${formik.values.genre ? "text-white" : "text-[#737373]"}`}
+          >
+            <option value="" disabled className="text-[#737373]">
+              نوع عکس
+            </option>
+            <option value="nature">طبیعت</option>
+            <option value="street">خیابانی</option>
+            <option value="gfhfgh">انتزاعی</option>
+          </select>
+          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+            <img src={arrowDown} alt="" />
+          </div>
+        </div>
+        <FormError title="genre" formik={formik} />
         <div className="relative w-full">
           <select
             name="photographer"
@@ -128,7 +137,7 @@ const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotopraphe
 
         <div className="w-full flex justify-end">
           <button className="buttonOfSuggest" type="submit">
-            ارسال
+            ثبت
           </button>
         </div>
       </form>
@@ -136,4 +145,4 @@ const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotopraphe
   );
 };
 
-export default NewPhotoprapher;
+export default NewPhoto;
