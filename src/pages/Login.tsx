@@ -5,12 +5,14 @@ import * as Yup from "yup";
 import FormError from "../components/FormError";
 import { Link } from "react-router-dom";
 import MainLogin from "../components/MainLogin";
+import { loginUser } from "../services/authServices";
 
 interface FormValue {
   email: string;
   password: string;
 }
 function Login() {
+ 
   const validationSchema = Yup.object({
     email: Yup.string().required("لطفا ایمیل را وارد کنید."),
     password: Yup.string().required("لطفا رمز را وارد کنید."),
@@ -21,7 +23,15 @@ function Login() {
       password: "",
     },
     validationSchema,
-    onSubmit: () => {},
+    onSubmit: async (values) => {
+      try {
+        await loginUser(values.email, values.password);
+        window.location.href = "/dashboard";
+      } catch (error) {
+        console.error("Login Error:", error);  
+        alert(error.message);  
+      }
+    }
   });
   return (
     <MainLogin>
@@ -31,11 +41,12 @@ function Login() {
       >
         <div className="flex flex-col gap-5">
           <FormFiled
-            type="email"
+            type="text"
             name="email"
             label="لطفا ایمیل خود را وارد کنید."
             placeHolder="ایمیل"
             onBlur={formik.handleBlur}
+            formik={formik}
           />
           <FormError title="email" formik={formik} />
           <FormFiled
@@ -44,6 +55,7 @@ function Login() {
             label="لطفا رمز خود را وارد کنید."
             placeHolder="رمز"
             onBlur={formik.handleBlur}
+            formik={formik}
 
           />
           <FormError title="password" formik={formik} />

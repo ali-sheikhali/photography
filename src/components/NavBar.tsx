@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../assets/logo.png";
 import profile from "../assets/Profile.jpg";
 import lock from "../assets/lock.png";
 import logOut from "../assets/logout.png";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +15,14 @@ function NavBar() {
       setIsOpen(false);
     }
   }
-
+  const auth = useContext(AuthContext)
+  const navigate = useNavigate()
+  const handleLogOut = ()=>{
+    if(auth){
+      auth.logout()
+      navigate("/login")
+    }
+  }
   return (
     <div className="w-full bg-[#0A0A0A] text-white relative">
       <div className="w-11/12 mx-auto flex items-center gap-6 relative">
@@ -63,7 +72,7 @@ function NavBar() {
                 </figure>
                 <p>رمز عبور</p>
               </li>
-              <li className="flex items-center gap-3 p-4">
+              <li className="flex items-center gap-3 p-4" onClick={handleLogOut}>
                 <figure>
                   <img className="w-8 h-8" src={logOut} alt="Logout" />
                 </figure>

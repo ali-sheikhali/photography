@@ -6,6 +6,7 @@ import Dashboard from "../pages/Dashboard"
 import Home from "../pages/Home";
 import Details from "../pages/Details";
 import Blogs from "../pages/Blogs";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -14,8 +15,12 @@ const router = createBrowserRouter([
         children:[
             {path: "/login" , element:<Login />},
             {path: "/forget-password" , element:<ForgetPassword />},
-            {path: "/dashboard" , element:<Dashboard />},
-            {path: "/home" , element:<Home />},
+            {
+                element: <PrivateRoute />,
+                children: [
+                  { path: "/dashboard", element: <Dashboard /> },
+                ],
+              },            {path: "/home" , element:<Home />},
             {path: "/details" , element:<Details />},
             {path: "/blogs" , element:<Blogs />},
         ]
