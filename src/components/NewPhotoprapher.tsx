@@ -11,8 +11,8 @@ import { submitPhotographer } from "../services/photographerServices";
 interface NewPhotoprapherProps {
   setOpenModal?: (value: boolean) => void;
   title: string;
-    bottomSheetRef?: React.RefObject<{ close?: () => void }>;
-  
+  bottomSheetRef?: React.RefObject<{ close?: () => void }>;
+  onPhotographerAdded?: (photographer: Photographer) => void; // ← جدید
 }
 interface FormValue {
   image: string;
@@ -20,9 +20,12 @@ interface FormValue {
   photographer: string;
 }
 
-const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotoprapherProps) => {
-
-
+const NewPhotoprapher = ({
+  title,
+  setOpenModal,
+  bottomSheetRef,
+  onPhotographerAdded
+}: NewPhotoprapherProps) => {
   const validationSchema = Yup.object({
     image: Yup.mixed().required("عکس را وارد کنید."),
     name: Yup.string().required("نام را وارد کنید."),
@@ -35,22 +38,27 @@ const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotopraphe
       photographer: "",
     },
     validationSchema,
-    onSubmit:async (values: FormValue) => {
+    onSubmit: async (values: FormValue) => {
       const formattedValues = {
-        image: values.image.url, 
+        image: values.image.url,
         name: values.name,
-        genre: values.photographer, 
+        genre: values.photographer,
       };
-    
-      console.log("Final Form Data:", formattedValues);
-      try{
 
-        await submitPhotographer(formattedValues)
-        alert("ok")
-      }catch(error){
-        alert(error.message)
+      try {
+        const newPhotographer = await submitPhotographer(formattedValues);
+
+        if (onPhotographerAdded) {
+          onPhotographerAdded(newPhotographer);
+        }
+        if (setOpenModal) {
+          setOpenModal(false);
+        } else {
+          bottomSheetRef?.current?.close?.();
+        }
+      } catch (error) {
+        alert(error.message);
       }
-      
     },
   });
   const handleClick = () => {
@@ -62,15 +70,14 @@ const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotopraphe
   const handleChoiceImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-
-      try{
-        const uploadedImage = await uploadImage(file)
-        formik.setFieldValue("image" , uploadedImage)
-      }catch(error){
-        alert("آپلود تصویر با خطا مواجه شد")
+      try {
+        const uploadedImage = await uploadImage(file);
+        formik.setFieldValue("image", uploadedImage);
+      } catch (error) {
+        alert("آپلود تصویر با خطا مواجه شد");
       }
+    }
   };
-}
   return (
     <div className="flex flex-col gap-8 w-11/12 mx-auto ">
       <div className="flex items-center justify-between">

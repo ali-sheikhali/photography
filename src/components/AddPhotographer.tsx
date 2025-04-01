@@ -4,7 +4,7 @@ import AddModal from "./AddModal";
 import NewPhotoprapher from "./NewPhotoprapher";
 import BottomSheet from "@wldyslw/react-bottom-sheet";
 import { fetchPhotographer } from "../services/fetchPhotoprapher";
-import trash from "../assets/trash.svg"
+import trash from "../assets/trash.svg";
 import { deletePhotographer } from "../services/deletePhotographer";
 interface BottomSheetRef {
   open: () => void;
@@ -19,10 +19,12 @@ interface Photographer {
 
 const AddPhotographer = () => {
   const [openModal, setOpenModal] = useState(false);
-  const bottomSheetRef = useRef<BottomSheetRef>(null as unknown as BottomSheetRef);
+  const bottomSheetRef = useRef<BottomSheetRef>(
+    null as unknown as BottomSheetRef
+  );
   const isMobile = useIsMobile();
-  const [loading , setLoading] = useState<boolean>(true)
-  const [photographers , setPhotographers] = useState<Photographer[]>([])
+  const [loading, setLoading] = useState<boolean>(true);
+  const [photographers, setPhotographers] = useState<Photographer[]>([]);
 
   const handleAddPhotographer = () => {
     if (isMobile) {
@@ -31,33 +33,32 @@ const AddPhotographer = () => {
       setOpenModal(true);
     }
   };
-  useEffect(()=>{
-    const loadPhotographer = async ()=>{
-      try{
-        setLoading(true)
-        const data = await fetchPhotographer()
-        setPhotographers(data)
+  useEffect(() => {
+    const loadPhotographer = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchPhotographer();
+        setPhotographers(data);
       } catch (error) {
         console.error("خطا در دریافت لیست عکاسان:", error);
       } finally {
         setLoading(false);
       }
-    }
+    };
     loadPhotographer();
-  }, [])
+  }, []);
 
-
-  const handleDelete = async (id)=>{
-    try{
-
-      await deletePhotographer(id)
-      setPhotographers(photographers.filter((photographer)=> photographer.id !== id ))
-    }catch{
-      alert("عکاس حذف نشد")
+  const handleDelete = async (id: string) => {
+    try {
+      await deletePhotographer(id);
+      setPhotographers(
+        photographers.filter((photographer) => photographer.id !== id)
+      );
+    } catch {
+      alert("عکاس حذف نشد");
     }
-  }
+  };
 
-  
   return (
     <div className="flex flex-col gap-8">
       <div className="w-full flex justify-end items-end">
@@ -70,9 +71,20 @@ const AddPhotographer = () => {
       ) : (
         <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {photographers.map((photographer) => (
-            <div key={photographer.id} className=" p-4 h-[280px] md:h-[390px] rounded-lg relative">
-              <img src={photographer.image} alt={photographer.name} className="w-full h-full object-cover rounded-lg" />
-              <img onClick={()=>handleDelete(photographer.id)}  src={trash} className="border-2 cursor-pointer border-[#DC2626] h-8 w-8 p-1 rounded-lg absolute left-7 bottom-7" />
+            <div
+              key={photographer.id}
+              className=" p-4 h-[280px] md:h-[390px] rounded-lg relative"
+            >
+              <img
+                src={photographer.image}
+                alt={photographer.name}
+                className="w-full h-full object-cover rounded-lg"
+              />
+              <img
+                onClick={() => handleDelete(photographer.id)}
+                src={trash}
+                className="border-2 cursor-pointer border-[#DC2626] h-8 w-8 p-1 rounded-lg absolute left-7 bottom-7"
+              />
             </div>
           ))}
         </div>
@@ -85,6 +97,12 @@ const AddPhotographer = () => {
               <NewPhotoprapher
                 setOpenModal={setOpenModal}
                 title="افزودن عکاس"
+                onPhotographerAdded={(newPhotographer) => {
+                  setPhotographers((prevPhotographers) => [
+                    ...prevPhotographers,
+                    newPhotographer,
+                  ]);
+                }}
               />
             </AddModal>
           </div>
@@ -95,7 +113,11 @@ const AddPhotographer = () => {
         ref={bottomSheetRef}
         className="!bg-[#171717] text-white w-full py-4 mx-auto "
       >
-        <NewPhotoprapher setOpenModal={setOpenModal} bottomSheetRef={bottomSheetRef} title="افزودن عکاس" />
+        <NewPhotoprapher
+          setOpenModal={setOpenModal}
+          bottomSheetRef={bottomSheetRef}
+          title="افزودن عکاس"
+        />
       </BottomSheet>
     </div>
   );
