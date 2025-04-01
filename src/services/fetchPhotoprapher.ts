@@ -1,0 +1,16 @@
+import axios from "axios";
+
+const API_URL = "https://kokoro.liara.run/api/photographers"
+export const fetchPhotographer = async ()=>{
+
+    try{
+        const response = await axios.get( API_URL , {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+
+        return response.data
+    }catch(error){
+        console.error("Error fetching photographers:", error.response?.data || error.message);
+    throw error;
+    }
+}

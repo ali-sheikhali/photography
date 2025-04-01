@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import addSquare from "../assets/add-square.png";
 import FormError from "./FormError";
 import arrowDown from "../assets/arrow-down.svg";
+import { uploadImage } from "../services/uploadPhotographer";
+import { submitPhotographer } from "../services/photographerServices";
 
 interface NewPhotoprapherProps {
   setOpenModal?: (value: boolean) => void;
@@ -19,6 +21,8 @@ interface FormValue {
 }
 
 const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotoprapherProps) => {
+
+
   const validationSchema = Yup.object({
     image: Yup.mixed().required("عکس را وارد کنید."),
     name: Yup.string().required("نام را وارد کنید."),
@@ -31,9 +35,22 @@ const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotopraphe
       photographer: "",
     },
     validationSchema,
-    onSubmit: (values: FormValue) => {
-      console.log("loooog: ", values);
-      bottomSheetRef?.current?.close?.();
+    onSubmit:async (values: FormValue) => {
+      const formattedValues = {
+        image: values.image.url, 
+        name: values.name,
+        genre: values.photographer, 
+      };
+    
+      console.log("Final Form Data:", formattedValues);
+      try{
+
+        await submitPhotographer(formattedValues)
+        alert("ok")
+      }catch(error){
+        alert(error.message)
+      }
+      
     },
   });
   const handleClick = () => {
@@ -42,14 +59,18 @@ const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotopraphe
     }
     bottomSheetRef?.current?.close?.();
   };
-  const handleChoiceImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChoiceImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const newPhoto = URL.createObjectURL(file);
-      formik.setFieldValue("image", newPhoto);
-      formik.setTouched({ ...formik.touched, image: true });
-    }
+
+      try{
+        const uploadedImage = await uploadImage(file)
+        formik.setFieldValue("image" , uploadedImage)
+      }catch(error){
+        alert("آپلود تصویر با خطا مواجه شد")
+      }
   };
+}
   return (
     <div className="flex flex-col gap-8 w-11/12 mx-auto ">
       <div className="flex items-center justify-between">
@@ -114,11 +135,13 @@ const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotopraphe
                     }`}
           >
             <option value="" disabled className="text-[#737373]">
-              عکاس خود را انتخاب کنید
+              دسته بندی خود را انتخاب کنید
             </option>
-            <option value="علی احمدی">علی احمدی</option>
-            <option value="مریم رضایی">مریم رضایی</option>
-            <option value="سارا موسوی">سارا موسوی</option>
+            <option value="nature">طبیعت</option>
+            <option value="street">خیابانی</option>
+            <option value="abstract">انتزاعی</option>
+            <option value="light">نور</option>
+            <option value="documentary">مستند</option>
           </select>
           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
             <img src={arrowDown} alt="" />
@@ -126,8 +149,8 @@ const NewPhotoprapher = ({ title, setOpenModal ,bottomSheetRef }: NewPhotopraphe
         </div>
         <FormError title="photographer" formik={formik} />
 
-        <div className="w-full flex justify-end">
-          <button className="buttonOfSuggest" type="submit">
+        <div className="w-full flex justify-end ">
+          <button className="buttonOfSuggest cursor-pointer" type="submit">
             ارسال
           </button>
         </div>
