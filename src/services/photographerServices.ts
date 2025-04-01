@@ -1,5 +1,4 @@
 import axios from "axios";
-import { string } from "yup";
 
 const API_URL = "https://kokoro.liara.run/api/photographers";
 
