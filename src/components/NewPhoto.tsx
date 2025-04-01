@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import closeSquare from "../assets/close-square.svg";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import addSquare from "../assets/add-square.png";
 import FormError from "./FormError";
 import arrowDown from "../assets/arrow-down.svg";
+import { fetchPhotographer } from "../services/fetchPhotoprapher";
+import { uploadImage } from "../services/uploadPhotographer";
+import { fetchPhoto } from "../services/photoServices";
 
 interface NewPhotoprapherProps {
   setOpenModal?: (value: boolean) => void;
@@ -16,8 +19,36 @@ interface FormValue {
   genre: string;
   photographer: string;
 }
+interface Photographer {
+  id: string;
+  name: string;
+  image: string;
+  genre: string;
+}
+const NewPhoto = ({
+  title,
+  setOpenModal,
+  bottomSheetRef,
+}: NewPhotoprapherProps) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [photographers, setPhotographers] = useState<Photographer[]>([]);
 
-const NewPhoto = ({ title, setOpenModal , bottomSheetRef }: NewPhotoprapherProps) => {
+  // console.log("photo: photo: ", photo);
+
+  useEffect(() => {
+    const loadPhotographer = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchPhotographer();
+        setPhotographers(data);
+      } catch (error) {
+        console.error("خطا در دریافت لیست عکاسان:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadPhotographer();
+  }, []);
   const validationSchema = Yup.object({
     image: Yup.mixed().required("عکس را وارد کنید."),
     genre: Yup.string().required("نوع را وارد کنید."),
@@ -30,9 +61,23 @@ const NewPhoto = ({ title, setOpenModal , bottomSheetRef }: NewPhotoprapherProps
       photographer: "",
     },
     validationSchema,
-    onSubmit: (values: FormValue) => {
-      console.log("loooog: ", values);
-      bottomSheetRef?.current?.close?.();
+    onSubmit: async (values: FormValue) => {
+      const formattedValues = {
+        url: values.image.url,
+        type: values.genre,
+        photographerId: values.photographer,
+      };
+      console.log("before send:", formattedValues);
+
+      try {
+        const photo = await fetchPhoto(formattedValues);
+        alert("عکس با موفقیت اضافه شد!");
+
+        bottomSheetRef?.current?.close?.();
+        setOpenModal?.(false);
+      } catch (error) {
+        alert("مشکلی در ارسال عکس به وجود آمد.");
+      }
     },
   });
   const handleClick = () => {
@@ -41,12 +86,17 @@ const NewPhoto = ({ title, setOpenModal , bottomSheetRef }: NewPhotoprapherProps
     }
     bottomSheetRef?.current?.close?.();
   };
-  const handleChoiceImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChoiceImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const newPhoto = URL.createObjectURL(file);
-      formik.setFieldValue("image", newPhoto);
-      formik.setTouched({ ...formik.touched, image: true });
+      try {
+        const uploadedImage = await uploadImage(file);
+        console.log("imageee: ", uploadedImage);
+
+        formik.setFieldValue("image", uploadedImage);
+      } catch (error) {
+        alert("آپلود تصویر با خطا مواجه شد");
+      }
     }
   };
   return (
@@ -98,11 +148,13 @@ const NewPhoto = ({ title, setOpenModal , bottomSheetRef }: NewPhotoprapherProps
                     ${formik.values.genre ? "text-white" : "text-[#737373]"}`}
           >
             <option value="" disabled className="text-[#737373]">
-              نوع عکس
+              دسته بندی عکس
             </option>
             <option value="nature">طبیعت</option>
             <option value="street">خیابانی</option>
-            <option value="gfhfgh">انتزاعی</option>
+            <option value="abstract">انتزاعی</option>
+            <option value="light">نور</option>
+            <option value="documentary">مستند</option>
           </select>
           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
             <img src={arrowDown} alt="" />
@@ -125,9 +177,11 @@ const NewPhoto = ({ title, setOpenModal , bottomSheetRef }: NewPhotoprapherProps
             <option value="" disabled className="text-[#737373]">
               عکاس خود را انتخاب کنید
             </option>
-            <option value="علی احمدی">علی احمدی</option>
-            <option value="مریم رضایی">مریم رضایی</option>
-            <option value="سارا موسوی">سارا موسوی</option>
+            {photographers.map((photographer) => (
+              <option key={photographer.id} value={photographer.id}>
+                {photographer.name}
+              </option>
+            ))}
           </select>
           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
             <img src={arrowDown} alt="" />
@@ -136,7 +190,7 @@ const NewPhoto = ({ title, setOpenModal , bottomSheetRef }: NewPhotoprapherProps
         <FormError title="photographer" formik={formik} />
 
         <div className="w-full flex justify-end">
-          <button className="buttonOfSuggest" type="submit">
+          <button className="buttonOfSuggest cursor-pointer" type="submit">
             ثبت
           </button>
         </div>
