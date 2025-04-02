@@ -1,12 +1,10 @@
 import React from "react";
 import heroHeader from "../../assets/hero.jpg";
-// import music from "../../assets/music.mp3";
 import AudioPlayer from "./AudioPlayer";
 
 function HeroHeader() {
   return (
     <div className="relative w-full">
-      {/* Background Image */}
       <img
         className="w-full h-[230px] sm:h-[300px] md:h-[400px] lg:h-[600px] rounded-2xl object-cover"
         src={heroHeader}

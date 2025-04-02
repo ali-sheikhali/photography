@@ -8,7 +8,6 @@ import usePhotos from "../../hooks/usePhotos";
 function ExampleOfWork() {
 
     const photos = usePhotos()
-    console.log("photooo: " , photos);
     
   return (
     <div className="w-full flex flex-col gap-8">
