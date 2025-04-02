@@ -12,7 +12,7 @@ interface NewPhotoprapherProps {
   setOpenModal?: (value: boolean) => void;
   title: string;
   bottomSheetRef?: React.RefObject<{ close?: () => void }>;
-  onPhotographerAdded?: (photographer: Photographer) => void; // ← جدید
+  onPhotographerAdded?: (photographer: Photographer) => void;
 }
 interface FormValue {
   image: string;

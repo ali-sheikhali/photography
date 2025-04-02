@@ -117,6 +117,12 @@ const AddPhotographer = () => {
           setOpenModal={setOpenModal}
           bottomSheetRef={bottomSheetRef}
           title="افزودن عکاس"
+          onPhotographerAdded={(newPhotographer) => {
+            setPhotographers((prevPhotographers) => [
+              ...prevPhotographers,
+              newPhotographer,
+            ]);
+          }}
         />
       </BottomSheet>
     </div>

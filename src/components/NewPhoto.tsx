@@ -7,12 +7,15 @@ import FormError from "./FormError";
 import arrowDown from "../assets/arrow-down.svg";
 import { fetchPhotographer } from "../services/fetchPhotoprapher";
 import { uploadImage } from "../services/uploadPhotographer";
-import { fetchPhoto } from "../services/photoServices";
+import { submitPhoto } from "../services/photoServices";
+import { fetchPhoto } from "../services/fetchPhoto";
 
 interface NewPhotoprapherProps {
   setOpenModal?: (value: boolean) => void;
   bottomSheetRef?: React.RefObject<{ close?: () => void }>;
   title: string;
+  onPhotoAdded?: (photographer: Photographer) => void;
+
 }
 interface FormValue {
   image: string;
@@ -29,25 +32,35 @@ const NewPhoto = ({
   title,
   setOpenModal,
   bottomSheetRef,
+  onPhotoAdded
 }: NewPhotoprapherProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [photographers, setPhotographers] = useState<Photographer[]>([]);
 
-  // console.log("photo: photo: ", photo);
-
   useEffect(() => {
     const loadPhotographer = async () => {
       try {
-        setLoading(true);
         const data = await fetchPhotographer();
         setPhotographers(data);
       } catch (error) {
         console.error("خطا در دریافت لیست عکاسان:", error);
+      }
+    };
+    loadPhotographer();
+  }, []);
+
+  useEffect(() => {
+    const loadPhotos = async () => {
+      try {
+        setLoading(true);
+         await fetchPhoto();
+      } catch (error) {
+        console.error("خطا در دریافت عکس‌ها:", error);
       } finally {
         setLoading(false);
       }
     };
-    loadPhotographer();
+    loadPhotos();
   }, []);
   const validationSchema = Yup.object({
     image: Yup.mixed().required("عکس را وارد کنید."),
@@ -67,14 +80,18 @@ const NewPhoto = ({
         type: values.genre,
         photographerId: values.photographer,
       };
-      console.log("before send:", formattedValues);
-
+      
       try {
-        const photo = await fetchPhoto(formattedValues);
-        alert("عکس با موفقیت اضافه شد!");
-
-        bottomSheetRef?.current?.close?.();
-        setOpenModal?.(false);
+         const newPhoto = await submitPhoto(formattedValues);
+       
+         if(onPhotoAdded){
+          onPhotoAdded(newPhoto)
+         }
+        if(setOpenModal){
+          setOpenModal(false)
+        }else{
+          bottomSheetRef?.current?.close?.();
+        }
       } catch (error) {
         alert("مشکلی در ارسال عکس به وجود آمد.");
       }
@@ -91,11 +108,9 @@ const NewPhoto = ({
     if (file) {
       try {
         const uploadedImage = await uploadImage(file);
-        console.log("imageee: ", uploadedImage);
-
         formik.setFieldValue("image", uploadedImage);
       } catch (error) {
-        alert("آپلود تصویر با خطا مواجه شد");
+        alert(error.message);
       }
     }
   };
