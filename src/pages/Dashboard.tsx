@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import AddPhotographer from "../components/AddPhotographer";
 import AddPhoto from "../components/AddPhoto";
+import AddBlog from "../components/AddBlog";
 
 interface Data {
   id:number, 
@@ -15,7 +16,7 @@ function Dashboard() {
   const data:Data[] = [
     {id:1 , title:"photographer" , name:"عکاس"},
     {id:2 , title:"photo" , name:"عکس"},
-    {id:3 , title:"بلاگ" , name:"بلاگ"},
+    {id:3 , title:"blog" , name:"بلاگ"},
 
   ]
   const activeData = data.find((item) => item.title === activeTab);
@@ -42,6 +43,7 @@ function Dashboard() {
           </div>
           {activeData?.title === "photographer" && <AddPhotographer /> }
           {activeData?.title === "photo" && <AddPhoto /> }
+          {activeData?.title === "blog" && <AddBlog /> }
         </div>
       </main>
       <Footer />
