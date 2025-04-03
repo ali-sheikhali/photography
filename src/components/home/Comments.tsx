@@ -4,59 +4,35 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-import person from "../../assets/person.jpg";
-
-interface Data {
+import { fetchComments } from "../../services/fetchComments";
+// import placeHolder from "../../assets/placeHolder.jpg";
+interface Comments {
   id: number;
   name: string;
   image: string;
-  description: string;
+  text: string;
 }
 function Comments() {
-  const data: Data[] = [
-    {
-      id: 1,
-      name: "علی احمدی",
-      image: person,
-      description:
-        "وقتی به عکس‌ها نگاه می‌کنم، فقط یک تصویر نمی‌بینم؛ بلکه حس، داستان و لحظه‌ای را تجربه می‌کنم که در زمان منجمد شده است. ترکیب نور، رنگ و زاویه‌ی دید در این عکس‌ها بی‌نظیر است. هر قاب، روایت خودش را دارد و این چیزی است که عکاسی را فراتر از یک تصویر ساده می‌برد. واقعاً تحسین‌برانگیز!",
-    },
-    {
-      id: 2,
-      name: "علی هاشمی",
-      image: person,
-      description:
-        "وقتی به عکس‌ها نگاه می‌کنم، فقط یک تصویر نمی‌بینم؛ بلکه حس، داستان و لحظه‌ای را تجربه می‌کنم که در زمان منجمد شده است. ترکیب نور، رنگ و زاویه‌ی دید در این عکس‌ها بی‌نظیر است. هر قاب، روایت خودش را دارد و این چیزی است که عکاسی را فراتر از یک تصویر ساده می‌برد. واقعاً تحسین‌برانگیز!",
-    },
-    {
-      id: 3,
-      name: "علی کاظمی",
-      image: person,
-      description:
-        "وقتی به عکس‌ها نگاه می‌کنم، فقط یک تصویر نمی‌بینم؛ بلکه حس، داستان و لحظه‌ای را تجربه می‌کنم که در زمان منجمد شده است. ترکیب نور، رنگ و زاویه‌ی دید در این عکس‌ها بی‌نظیر است. هر قاب، روایت خودش را دارد و این چیزی است که عکاسی را فراتر از یک تصویر ساده می‌برد. واقعاً تحسین‌برانگیز!",
-    },
-    {
-      id: 4,
-      name: "علی ناصری",
-      image: person,
-      description:
-        "وقتی به عکس‌ها نگاه می‌کنم، فقط یک تصویر نمی‌بینم؛ بلکه حس، داستان و لحظه‌ای را تجربه می‌کنم که در زمان منجمد شده است. ترکیب نور، رنگ و زاویه‌ی دید در این عکس‌ها بی‌نظیر است. هر قاب، روایت خودش را دارد و این چیزی است که عکاسی را فراتر از یک تصویر ساده می‌برد. واقعاً تحسین‌برانگیز!",
-    },
-    {
-      id: 5,
-      name: "علی مجیدی",
-      image: person,
-      description:
-        "وقتی به عکس‌ها نگاه می‌کنم، فقط یک تصویر نمی‌بینم؛ بلکه حس، داستان و لحظه‌ای را تجربه می‌کنم که در زمان منجمد شده است. ترکیب نور، رنگ و زاویه‌ی دید در این عکس‌ها بی‌نظیر است. هر قاب، روایت خودش را دارد و این چیزی است که عکاسی را فراتر از یک تصویر ساده می‌برد. واقعاً تحسین‌برانگیز!",
-    },
-  ];
+  const [comments, setComments] = useState<Comments[]>([]);
+
+  useEffect(() => {
+    const loadComments = async () => {
+      try {
+        const data = await fetchComments();
+        setComments(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loadComments();
+  }, []);
   const [mobile, setMobile] = useState(false);
   const [tablet, setTablet] = useState(false);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
         setMobile(true);
-        setTablet(false)
+        setTablet(false);
       } else if (window.innerWidth < 1024) {
         setTablet(true);
         setMobile(false);
@@ -68,6 +44,9 @@ function Comments() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, [window.innerWidth]);
+
+  console.log("commtefdg:", comments);
+
   return (
     <div className="w-full flex flex-col gap-8 ">
       <SubTitle title="نظرات کاربران ما" />
@@ -83,17 +62,21 @@ function Comments() {
             modules={[Pagination]}
             className="mySwiper"
           >
-            {data.map((item) => (
+            {comments.map((comment) => (
               <SwiperSlide>
-                <div className="" key={item.id}>
-                  <div className="flex flex-col gap-6 justify-center items-center px-6 py-20 rounded-2xl bg-[#FAFAFA]">
-                    <img
-                      src={item.image}
+                <div className="h-80" key={comment.id}>
+                  <div className="flex flex-col h-72 gap-6 justify-around items-center px-3 py-5 rounded-2xl bg-[#FAFAFA]">
+                    {/* <img
+                      src={comment.image ? comment.image : placeHolder}
                       alt="image"
                       className="rounded-full w-20 h-20"
-                    />
-                    <h4 className="font-bold text-xl ">{item.name}</h4>
-                    <p className="text-center">{item.description}</p>
+                    /> */}
+                    <h4 className="font-bold text-xl bg-red-300">
+                      {comment.name}
+                    </h4>
+                    <p className="text-center flex-grow overflow-hidden bg-blue-200">
+                      {comment.text}
+                    </p>
                   </div>
                 </div>
               </SwiperSlide>

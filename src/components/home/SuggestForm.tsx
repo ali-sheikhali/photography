@@ -72,7 +72,7 @@ const SuggestForm = () => {
           value={formik.values.name}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          className="border-[#247D7B] border py-2 px-3 focus:outline-none placeholder:text-[#737373] rounded-md"
+          className="border-[#247D7B] border py-2 px-3 focus:outline-none text-white placeholder:text-[#737373] rounded-md"
         />
         <FormError title="name" formik={formik} />
         <div className="relative w-full">
