@@ -78,7 +78,7 @@ const AddBlog = () => {
         accessor: "description",
         Cell: ({ value }: any) => (
           <div className="flex justify-center overflow-hidden">
-            <p>{value}</p>
+            <p>{value.length > 50 ? value.slice(0,50) + "..." : value}</p>
           </div>
         ),
       },

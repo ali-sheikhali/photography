@@ -38,14 +38,10 @@ function Comments() {
         setMobile(false);
       }
     };
-
     handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, [window.innerWidth]);
-
-  console.log("commtefdg:", comments);
 
   return (
     <div className="w-full flex flex-col gap-8 ">
@@ -71,10 +67,10 @@ function Comments() {
                       alt="image"
                       className="rounded-full w-20 h-20"
                     /> */}
-                    <h4 className="font-bold text-xl bg-red-300">
+                    <h4 className="font-bold text-xl ">
                       {comment.name}
                     </h4>
-                    <p className="text-center flex-grow overflow-hidden bg-blue-200">
+                    <p className="text-center flex-grow overflow-hidden">
                       {comment.text}
                     </p>
                   </div>
