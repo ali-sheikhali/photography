@@ -17,7 +17,7 @@ const usePhotos = () => {
         const response = await fetchPhoto();
         setPhotos(response);
       } catch (error) {
-        console.error(error.message);
+        console.error(error);
       }
     };
 

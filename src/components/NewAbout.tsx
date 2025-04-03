@@ -2,28 +2,26 @@ import React from "react";
 import closeSquare from "../assets/close-square.svg";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { uploadImage } from "../services/uploadPhotographer";
 import addSquare from "../assets/add-square.png";
 import FormError from "./FormError";
-import arrowDown from "../assets/arrow-down.svg";
-import { uploadImage } from "../services/uploadPhotographer";
-import { submitBlog } from "../services/blogServices";
-interface NewBlogProps {
+import { submitAbout } from "../services/aboutServices";
+interface NewAboutProps {
   setOpenModal?: (value: boolean) => void;
   title: string;
   bottomSheetRef?: React.RefObject<{ close?: () => void }>;
-  onBlogAdded?: (blog: FormValue) => void;
+  //   onBlogAdded?: (about: FormValue) => void;
 }
 interface FormValue {
-  title: string;
   image: string;
   description: string;
 }
-const NewBlog = ({
+const NewAbout = ({
   title,
   setOpenModal,
   bottomSheetRef,
-  onBlogAdded,
-}: NewBlogProps) => {
+}: //   onBlogAdded,
+NewAboutProps) => {
   const handleClick = () => {
     if (setOpenModal) {
       setOpenModal(false);
@@ -32,13 +30,11 @@ const NewBlog = ({
   };
 
   const validationSchema = Yup.object({
-    title: Yup.string().required("لطفا تایتل را وارد کنید"),
     description: Yup.string().required("لطفا توضیحات را وارد کنید"),
     image: Yup.string().required("لطفا عکس را وارد کنید"),
   });
   const formik = useFormik<FormValue>({
     initialValues: {
-      title: "",
       image: "",
       description: "",
     },
@@ -47,14 +43,13 @@ const NewBlog = ({
       console.log("values: ", values);
       const formData = {
         image: values.image,
-        title: values.title,
         description: values.description,
       };
       try {
-        const response = await submitBlog(formData);
-        if (onBlogAdded) {
-          onBlogAdded(response);
-        }
+        const response = await submitAbout(formData);
+        // if (onBlogAdded) {
+        //   onBlogAdded(response);
+        // }
         if (setOpenModal) {
           setOpenModal(false);
         } else {
@@ -65,6 +60,7 @@ const NewBlog = ({
       }
     },
   });
+
   const handleChoiceImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -115,17 +111,6 @@ const NewBlog = ({
           />
         </div>
         <FormError title="image" formik={formik} />
-
-        <input
-          type="text"
-          name="title"
-          placeholder="تایتل را وارد کنید"
-          value={formik.values.title}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          className="border-[#247D7B] border py-2 px-3 focus:outline-none placeholder:text-[#737373] rounded-md"
-        />
-        <FormError title="title" formik={formik} />
         <textarea
           className="h-[128px] resize-none focus:outline-none text-white font-bold border border-[#247D7B] placeholder:text-[#737373] rounded-md px-1 py-2"
           name="description"
@@ -145,4 +130,4 @@ const NewBlog = ({
   );
 };
 
-export default NewBlog;
+export default NewAbout;

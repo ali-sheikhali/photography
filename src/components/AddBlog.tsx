@@ -35,7 +35,7 @@ const AddBlog = () => {
         const data = await fetchBlogs();
         setRowData(data);
       } catch (error) {
-        console.error(error.message);
+        console.error(error);
       }
     };
     loadBlogs();
@@ -73,12 +73,15 @@ const AddBlog = () => {
           </div>
         ),
       },
-      { Header: "توضیحات", accessor: "description"  ,
+      {
+        Header: "توضیحات",
+        accessor: "description",
         Cell: ({ value }: any) => (
-        <div className="flex justify-center overflow-hidden">
-          <p>{value}</p>
-        </div>)
-         },
+          <div className="flex justify-center overflow-hidden">
+            <p>{value}</p>
+          </div>
+        ),
+      },
     ],
     [rowData]
   );
@@ -135,10 +138,12 @@ const AddBlog = () => {
           <div className="inset-0 absolute backdrop-blur-sm"></div>
           <div className="relative w-6/12 rounded-lg py-8 px-4">
             <AddModal rounded={false}>
-              <NewBlog title="بلاگ جدید" setOpenModal={setOpenModal} 
-              onBlogAdded = {(newBlog)=>{
-                setRowData((prevBlog)=> [...prevBlog , newBlog])
-            }}
+              <NewBlog
+                title="بلاگ جدید"
+                setOpenModal={setOpenModal}
+                onBlogAdded={(newBlog) => {
+                  setRowData((prevBlog) => [...prevBlog, newBlog]);
+                }}
               />
             </AddModal>
           </div>
@@ -150,10 +155,12 @@ const AddBlog = () => {
         ref={bottomSheetRef}
         className="!bg-[#171717] text-white w-full py-4 mx-auto"
       >
-        <NewBlog title="بلاگ جدید" bottomSheetRef={bottomSheetRef}
-        onBlogAdded = {(newBlog)=>{
-            setRowData((prevBlog)=> [...prevBlog , newBlog])
-        }}
+        <NewBlog
+          title="بلاگ جدید"
+          bottomSheetRef={bottomSheetRef}
+          onBlogAdded={(newBlog) => {
+            setRowData((prevBlog) => [...prevBlog, newBlog]);
+          }}
         />
       </BottomSheet>
     </div>

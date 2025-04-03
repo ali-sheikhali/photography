@@ -10,26 +10,30 @@ interface Blogs {
   image: string;
 }
 const Blogs = () => {
+  const [blogs, setBlogs] = useState<Blogs[]>([]);
 
-  const [blogs , setBlogs] = useState<Blogs[]>([])
-  
-    useEffect(() => {
-      const loadBlogs = async () => {
-        try {
-          const data = await fetchBlogs();
-          setBlogs(data);
-        } catch (error) {
-          console.error(error.message);
-        }
-      };
-      loadBlogs();
-    }, []);
+  useEffect(() => {
+    const loadBlogs = async () => {
+      try {
+        const data = await fetchBlogs();
+        setBlogs(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loadBlogs();
+  }, []);
   return (
     <div className="bg-[#1D1818] min-h-screen text-white">
       <NavBarHome />
       <div className="w-11/12 mx-auto flex flex-col gap-12 my-12">
-        {blogs.map((blog , index:number) => (
-          <div className={`flex flex-col md:flex-row gap-6 ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`} key={blog.id}>
+        {blogs.map((blog, index: number) => (
+          <div
+            className={`flex flex-col md:flex-row gap-6 ${
+              index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+            }`}
+            key={blog.id}
+          >
             <img
               className="w-full h-[230px] md:h-[315px] object-cover rounded-md md:w-6/12"
               src={blog.image}

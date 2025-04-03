@@ -53,7 +53,7 @@ const AddPhoto = () => {
       await deletePhoto(id);
       setPhotos(photos.filter((photo) => photo.id !== id));
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
     }
   };
   return (

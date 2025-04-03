@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API_URL = "https://kokoro.liara.run/api/blogs";
+const API_URL = "https://kokoro.liara.run/api/about";
 
-export const fetchBlogs = async () => {
+export const fetchAbout = async () => {
   try {
     const response = await axios.get(API_URL, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
