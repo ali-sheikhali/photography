@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import logo from "../assets/logo.png";
 import profile from "../assets/Profile.jpg";
 import lock from "../assets/lock.png";
@@ -10,19 +10,25 @@ import useIsMobile from "../hooks/useIsMobile";
 import AddModal from "./AddModal";
 import BottomSheet from "@wldyslw/react-bottom-sheet";
 import ChangePassword from "./ChangePassword";
+import { fetchProfile } from "../services/fetchProfile";
+import { submitChangePassword } from "../services/changePassword";
 
-
-interface BottomSheetRef{
+interface BottomSheetRef {
   open: () => void;
   close?: () => void;
 }
+interface Profile {
+  username: string;
+}
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [openModal , setOpenModal] = useState(false)
-  const isMobile = useIsMobile()
+  const [openModal, setOpenModal] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [userName, setUserName] = useState<Profile>({ username: "" });
+  const isMobile = useIsMobile();
   const bottomSheetRef = useRef<BottomSheetRef>(
-      null as unknown as BottomSheetRef
-    );
+    null as unknown as BottomSheetRef
+  );
   // Close dropdown when clicking outside
   const closeDropdown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!(e.target as HTMLElement).closest(".dropdown-container")) {
@@ -41,16 +47,40 @@ function NavBar() {
   const passwordHandleClick = () => {
     setIsOpen(false);
     if (isMobile) {
-      bottomSheetRef.current?.open(); 
+      bottomSheetRef.current?.open();
     } else {
-      setOpenModal(true); 
+      setOpenModal(true);
+    }
+  };
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const response = await fetchProfile();
+        setUserName(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loadProfile();
+  }, []);
+  const handleSubmitProfile = async () => {
+    try {
+      const updatedData: { username?: string } = {};
+  
+      if (userName.username) {
+        updatedData.username = userName.username;
+      }
+  
+      await submitChangePassword(updatedData); 
+      setEditing(false);
+    } catch (error) {
+      console.error("خطا در ذخیره پروفایل", error);
     }
   };
   return (
     <div className="w-full bg-[#0A0A0A] text-white relative">
       <div className="w-11/12 mx-auto flex items-center gap-6 relative">
         <img src={logo} alt="Logo" />
-
         <div className="relative dropdown-container z-30">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -74,17 +104,37 @@ function NavBar() {
 
           {isOpen && (
             <ul className="absolute top-16 z-20 bg-[#171717] rounded-md p-4 md:right-0 -right-28 text-[#D4D4D4] w-80 shadow">
-              <li className="flex items-center gap-3 border-b border-[#737373] p-4">
+              <li className="flex items-center justify-between gap-3 border-b border-[#737373] p-4">
                 <div className="flex items-center gap-2">
-                <figure>
-                  <img
-                    className="rounded-full w-8 h-8"
-                    src={profile}
-                    alt="Profile"
-                  />
-                </figure>
-                <p>علی احمدی</p>
+                  <figure>
+                    <img
+                      className="rounded-full w-8 h-8"
+                      src={profile}
+                      alt="Profile"
+                    />
+                  </figure>
+                  {editing ? (
+                    <>
+                      <input
+                        type="text"
+                        value={userName.username}
+                        onChange={(e) =>
+                          setUserName({ ...userName, username: e.target.value })
+                        }
+                        className="bg-[#333]  text-white p-1 rounded-xl focus:outline-none py-1 px-2"
+                      />
+                      <button
+                        onClick={handleSubmitProfile}
+                        className="text-green-400 text-sm ml-2"
+                      >
+                        ذخیره
+                      </button>
+                    </>
+                  ) : (
+                    <p>{userName.username}</p>
+                  )}
                 </div>
+           {!editing && <img onClick={()=> setEditing(true)} src={edit} alt="" /> } 
               </li>
               <li className="flex items-center justify-between gap-3 border-b border-[#737373] p-4">
                 <div className="flex items-center gap-2">
@@ -93,7 +143,7 @@ function NavBar() {
                   </figure>
                   <p>رمز عبور</p>
                 </div>
-                  <img onClick={passwordHandleClick} src={edit} alt="" />
+                <img onClick={passwordHandleClick} src={edit} alt="" />
               </li>
               <li
                 className="flex items-center gap-3 p-4 cursor-pointer"
@@ -123,7 +173,7 @@ function NavBar() {
         ref={bottomSheetRef}
         className="!bg-[#171717] text-white w-full py-4 mx-auto"
       >
-       <ChangePassword title="رمز جدید" bottomSheetRef={bottomSheetRef} />
+        <ChangePassword title="رمز جدید" bottomSheetRef={bottomSheetRef} />
       </BottomSheet>
     </div>
   );

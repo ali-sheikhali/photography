@@ -21,7 +21,6 @@ const ChangePassword = ({
   const validationSchema = Yup.object({
     password: Yup.string().required("لطفا رمز را وارد کنید"),
   });
-  //   const username = formik.setFieldValue("username", ali)
 
   const formik = useFormik<FormValue>({
     initialValues: {
@@ -29,14 +28,13 @@ const ChangePassword = ({
     },
     validationSchema,
     onSubmit: async (values) => {
-      console.log("values: ", values);
-        const formData = {
-        //   username: values.username,
-          password: values.password,
-        };
+        console.log("pass: " , values);
+        
+        const password = values.password
         try {
-           await submitChangePassword(formData);
-
+           await submitChangePassword({ password: password });
+            console.log("password changed");
+            
           if (setOpenModal) {
             setOpenModal(false);
           } else {
@@ -44,6 +42,8 @@ const ChangePassword = ({
           }
         } catch (error) {
           console.error(error);
+          console.log("not");
+          
         }
     },
   });

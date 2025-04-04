@@ -29,7 +29,7 @@ function Login() {
         window.location.href = "/dashboard";
       } catch (error) {
         console.error("Login Error:", error);  
-        alert(error.message);  
+        alert("رمز را اشتباه وارد کردید.");  
       }
     }
   });
@@ -63,7 +63,7 @@ function Login() {
             <p className="text-[#247D7B] ">فراموشی رمز ورود</p>
           </Link>
         </div>
-        <button className="buttonOfForm" type="submit">
+        <button className="buttonOfForm cursor-pointer" type="submit">
          ورود
         </button>
       </form>
