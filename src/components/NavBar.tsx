@@ -28,7 +28,7 @@ function NavBar() {
   const isMobile = useIsMobile();
   const bottomSheetRef = useRef<BottomSheetRef>(
     null as unknown as BottomSheetRef
-  );
+  );  
   // Close dropdown when clicking outside
   const closeDropdown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!(e.target as HTMLElement).closest(".dropdown-container")) {

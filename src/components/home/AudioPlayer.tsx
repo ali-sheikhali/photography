@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Play, Pause } from "lucide-react";
 import music from "../../assets/music.mp3";
 export default function AudioPlayer() {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);

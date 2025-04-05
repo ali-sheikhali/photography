@@ -13,7 +13,7 @@ function HeroHeader() {
 
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 md:w-3/4 backdrop-blur-sm rounded-xl">
         <main className="">
-          {/* <AudioPlayer /> */}
+          <AudioPlayer />
         </main>
       </div>
     </div>

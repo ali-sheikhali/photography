@@ -49,7 +49,9 @@ function NavBarHome({ scrollToSection }: Services) {
     <div className="w-full bg-[#1D1818] text-[#FAFAFA] py-2 z-10 border-b border-[#247D7B] relative">
       <div className="w-11/12 mx-auto flex justify-between items-center">
         <div className="flex items-center">
+          <Link to="/">
           <img src={logo} alt="logo" />
+          </Link>
           <button className="sm:hidden" onClick={() => setOpenMenu(true)}>
             <img src={menu} alt="menu" />
           </button>

@@ -28,7 +28,7 @@ function Dashboard() {
       
       <main className="w-full flex-grow">
         <div className="w-11/12 mx-auto flex flex-col py-4">
-          <div className="flex gap-4 my-12 border-b border-[#292524] py-1">
+          <div className="flex md:gap-4 gap-1 my-12 border-b border-[#292524] py-1">
             {data.map((item, index) => (
               <div key={index}>
                 <button
