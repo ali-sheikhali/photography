@@ -60,17 +60,12 @@ function Comments() {
           >
             {comments.map((comment) => (
               <SwiperSlide>
-                <div className="h-80" key={comment.id}>
-                  <div className="flex flex-col h-72 gap-6 justify-around items-center px-3 py-5 rounded-2xl bg-[#FAFAFA]">
-                    {/* <img
-                      src={comment.image ? comment.image : placeHolder}
-                      alt="image"
-                      className="rounded-full w-20 h-20"
-                    /> */}
+                <div className="h-72" key={comment.id}>
+                  <div className="flex flex-col h-60 gap-6 justify-around items-start px-3 py-5 rounded-2xl bg-[#FAFAFA]">
                     <h4 className="font-bold text-xl ">
                       {comment.name}
                     </h4>
-                    <p className="text-center flex-grow overflow-hidden">
+                    <p className=" flex-grow overflow-hidden">
                       {comment.text}
                     </p>
                   </div>
