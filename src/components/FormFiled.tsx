@@ -20,6 +20,7 @@ function FormFiled({ type, label, name, placeHolder, borderColor, onBlur, formik
         placeholder={placeHolder}
         onBlur={onBlur}
         onChange={formik.handleChange}
+        value={formik.values[name]}
       />
     </div>
   );
