@@ -97,10 +97,10 @@ const AddBlog = () => {
         </div>
       </div>
 
-      <div className="">
+      <div className="w-full overflow-x-auto md:overflow-x-visible">
         <table
           {...getTableProps()}
-          className="min-w-full text-center rounded-xl overflow-hidden"
+          className="min-w-[1000px] text-center rounded-xl overflow-hidden"
         >
           <thead className="bg-[#292524] rounded-xl">
             {headerGroups.map((headerGroup) => (

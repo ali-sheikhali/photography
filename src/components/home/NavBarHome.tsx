@@ -88,7 +88,9 @@ function NavBarHome({ scrollToSection }: Services) {
             لیست قیمت
           </p>
           <p>تماس با ما</p>
+          <Link to="/blogs">
           <p>بلاگ</p>
+          </Link>
         </div>
       </div>
       {openModal && (
