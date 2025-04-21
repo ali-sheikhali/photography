@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import NavBarHome from "../components/home/NavBarHome";
 import Footer from "../components/home/Footer";
-import blog from "../assets/blog.svg";
 import { fetchBlogs } from "../services/fetchBlogs";
 interface Blogs {
   id: number;

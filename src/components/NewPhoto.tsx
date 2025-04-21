@@ -15,7 +15,6 @@ interface NewPhotoprapherProps {
   bottomSheetRef?: React.RefObject<{ close?: () => void }>;
   title: string;
   onPhotoAdded?: (photographer: Photographer) => void;
-
 }
 interface FormValue {
   image: string;
@@ -32,7 +31,7 @@ const NewPhoto = ({
   title,
   setOpenModal,
   bottomSheetRef,
-  onPhotoAdded
+  onPhotoAdded,
 }: NewPhotoprapherProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [photographers, setPhotographers] = useState<Photographer[]>([]);
@@ -53,7 +52,7 @@ const NewPhoto = ({
     const loadPhotos = async () => {
       try {
         setLoading(true);
-         await fetchPhoto();
+        await fetchPhoto();
       } catch (error) {
         console.error("خطا در دریافت عکس‌ها:", error);
       } finally {
@@ -80,16 +79,16 @@ const NewPhoto = ({
         type: values.genre,
         photographerId: values.photographer,
       };
-      
+
       try {
-         const newPhoto = await submitPhoto(formattedValues);
-       
-         if(onPhotoAdded){
-          onPhotoAdded(newPhoto)
-         }
-        if(setOpenModal){
-          setOpenModal(false)
-        }else{
+        const newPhoto = await submitPhoto(formattedValues);
+
+        if (onPhotoAdded) {
+          onPhotoAdded(newPhoto);
+        }
+        if (setOpenModal) {
+          setOpenModal(false);
+        } else {
           bottomSheetRef?.current?.close?.();
         }
       } catch (error) {
@@ -110,7 +109,7 @@ const NewPhoto = ({
         const uploadedImage = await uploadImage(file);
         formik.setFieldValue("image", uploadedImage);
       } catch (error) {
-        alert(error.message);
+        alert(error);
       }
     }
   };

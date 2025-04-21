@@ -4,7 +4,6 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import addSquare from "../assets/add-square.png";
 import FormError from "./FormError";
-import arrowDown from "../assets/arrow-down.svg";
 import { uploadImage } from "../services/uploadPhotographer";
 import { submitBlog } from "../services/blogServices";
 interface NewBlogProps {
@@ -58,7 +57,7 @@ const NewBlog = ({
         if (setOpenModal) {
           setOpenModal(false);
         } else {
-          bottomSheetRef?.current?.close();
+          bottomSheetRef?.current?.close?.();
         }
       } catch (error) {
         console.error(error);
@@ -72,7 +71,7 @@ const NewBlog = ({
         const uploadedImage = await uploadImage(file);
         formik.setFieldValue("image", uploadedImage.url);
       } catch (error) {
-        alert("آپلود تصویر با خطا مواجه شد");
+        console.error(error);
       }
     }
   };

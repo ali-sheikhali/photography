@@ -8,23 +8,28 @@ import arrowDown from "../assets/arrow-down.svg";
 import { uploadImage } from "../services/uploadPhotographer";
 import { submitPhotographer } from "../services/photographerServices";
 
+interface UploadedImage {
+  url: string;
+}
 interface NewPhotoprapherProps {
   setOpenModal?: (value: boolean) => void;
   title: string;
   bottomSheetRef?: React.RefObject<{ close?: () => void }>;
   onPhotographerAdded?: (photographer: Photographer) => void;
 }
+
 interface FormValue {
-  image: string;
+  image: UploadedImage;
   name: string;
   photographer: string;
+  
 }
 
 const NewPhotoprapher = ({
   title,
   setOpenModal,
   bottomSheetRef,
-  onPhotographerAdded
+  onPhotographerAdded,
 }: NewPhotoprapherProps) => {
   const validationSchema = Yup.object({
     image: Yup.mixed().required("عکس را وارد کنید."),
@@ -33,7 +38,7 @@ const NewPhotoprapher = ({
   });
   const formik = useFormik<FormValue>({
     initialValues: {
-      image: "",
+      image: { url: "" },
       name: "",
       photographer: "",
     },
@@ -57,7 +62,7 @@ const NewPhotoprapher = ({
           bottomSheetRef?.current?.close?.();
         }
       } catch (error) {
-        alert(error.message);
+        alert(error);
       }
     },
   });
@@ -74,7 +79,7 @@ const NewPhotoprapher = ({
         const uploadedImage = await uploadImage(file);
         formik.setFieldValue("image", uploadedImage);
       } catch (error) {
-        alert("آپلود تصویر با خطا مواجه شد");
+        alert("آپلود تصویر با خطا مواجه شد", error);
       }
     }
   };

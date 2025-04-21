@@ -28,23 +28,22 @@ const ChangePassword = ({
     },
     validationSchema,
     onSubmit: async (values) => {
-        console.log("pass: " , values);
-        
-        const password = values.password
-        try {
-           await submitChangePassword({ password: password });
-            console.log("password changed");
-            
-          if (setOpenModal) {
-            setOpenModal(false);
-          } else {
-            bottomSheetRef?.current?.close();
-          }
-        } catch (error) {
-          console.error(error);
-          console.log("not");
-          
+      console.log("pass: ", values);
+
+      const password = values.password;
+      try {
+        await submitChangePassword({ password: password });
+        console.log("password changed");
+
+        if (setOpenModal) {
+          setOpenModal(false);
+        } else {
+          bottomSheetRef?.current?.close?.();
         }
+      } catch (error) {
+        console.error(error);
+        console.log("not");
+      }
     },
   });
   const handleClick = () => {

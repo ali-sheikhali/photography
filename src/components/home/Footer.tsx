@@ -1,4 +1,3 @@
-import React from "react";
 import callCalling from "../../assets/call-calling.svg";
 import sms from "../../assets/sms.svg";
 import telegram from "../../assets/telegram.svg";

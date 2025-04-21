@@ -1,4 +1,3 @@
-import React from "react";
 import heroHeader from "../../assets/hero.jpg";
 import AudioPlayer from "./AudioPlayer";
 

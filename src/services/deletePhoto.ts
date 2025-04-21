@@ -9,7 +9,7 @@ export const deletePhoto = async (id: string) => {
     });
     return true;
   } catch (error) {
-    console.error("خطا در حذف عکاس:", error.response?.data || error.message);
+    console.error(error);
     throw error;
   }
 };

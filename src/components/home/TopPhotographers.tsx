@@ -4,10 +4,17 @@ import PhotoGrapther from "./PhotoGrapther";
 import usePhotos from "../../hooks/usePhotos"; 
 import { usePhotographer } from "../../hooks/usePhotographer";
 
+interface Photographer {
+  id: number;
+  name: string;
+  genre: string;
+  image: string;
+  portfolio: string[];
+}
 const TopPhotographers: React.FC = () => {
   const photos = usePhotos();
   const photographers = usePhotographer();
-  const [updatedPhotographers, setUpdatedPhotographers] = useState([]);
+  const [updatedPhotographers, setUpdatedPhotographers] = useState<Photographer[]>([]);
   
   
   useEffect(() => {

@@ -46,14 +46,12 @@ NewAboutProps) => {
         description: values.description,
       };
       try {
-        const response = await submitAbout(formData);
-        // if (onBlogAdded) {
-        //   onBlogAdded(response);
-        // }
+        await submitAbout(formData);
+       
         if (setOpenModal) {
           setOpenModal(false);
         } else {
-          bottomSheetRef?.current?.close();
+          bottomSheetRef?.current?.close?.();
         }
       } catch (error) {
         console.error(error);

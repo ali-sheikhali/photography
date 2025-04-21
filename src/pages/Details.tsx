@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import NavBarHome from "../components/home/NavBarHome";
-import photo from "../assets/picture.jpg";
 import DetailTemplate from "../components/DetailTemplate";
 import Footer from "../components/home/Footer";
 import usePhotos from "../hooks/usePhotos";

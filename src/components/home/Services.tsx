@@ -1,4 +1,3 @@
-import React from "react";
 import SubTitle from "./SubTitle";
 import camera from "../../assets/camera.svg";
 import addHome from "../../assets/add-home.svg";

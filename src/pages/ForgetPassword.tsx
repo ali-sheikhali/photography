@@ -1,4 +1,3 @@
-import React from "react";
 import MainLogin from "../components/MainLogin";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -33,6 +32,7 @@ function ForgetPassword() {
             label="لطفا ایمیل خود را وارد کنید."
             placeHolder="ایمیل"
             onBlur={formik.handleBlur}
+            formik={formik}
           />
           <FormError title="email" formik={formik} />
         </div>
