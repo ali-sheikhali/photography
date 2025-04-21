@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 interface AddModal {
   rounded: boolean;
   children: ReactNode; 

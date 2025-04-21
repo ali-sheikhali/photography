@@ -1,4 +1,3 @@
-import React from "react";
 import SubTitle from "./SubTitle";
 import arrowLeft from "../../assets/arrow-left.svg";
 import { Link } from "react-router-dom";

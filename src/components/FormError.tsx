@@ -1,6 +1,6 @@
 import { FormikErrors, FormikProps } from "formik";
 import { T } from "react";
-// why T has red line???
+
 interface Props {
   title: keyof FormikErrors<T>;
   formik: FormikProps<T>; 

@@ -1,4 +1,3 @@
-import React from "react";
 import SubTitle from "./SubTitle";
 import SuggestForm from "./SuggestForm";
 import lenz from "../../assets/lenz.jpg";

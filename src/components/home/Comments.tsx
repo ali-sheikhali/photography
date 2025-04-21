@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SubTitle from "./SubTitle";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { fetchComments } from "../../services/fetchComments";
-// import placeHolder from "../../assets/placeHolder.jpg";
 interface Comments {
   id: number;
   name: string;

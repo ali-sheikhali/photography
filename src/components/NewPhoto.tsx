@@ -33,7 +33,6 @@ const NewPhoto = ({
   bottomSheetRef,
   onPhotoAdded,
 }: NewPhotoprapherProps) => {
-  const [loading, setLoading] = useState<boolean>(true);
   const [photographers, setPhotographers] = useState<Photographer[]>([]);
 
   useEffect(() => {
@@ -51,13 +50,10 @@ const NewPhoto = ({
   useEffect(() => {
     const loadPhotos = async () => {
       try {
-        setLoading(true);
         await fetchPhoto();
       } catch (error) {
         console.error("خطا در دریافت عکس‌ها:", error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
     loadPhotos();
   }, []);

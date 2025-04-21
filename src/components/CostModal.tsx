@@ -1,4 +1,3 @@
-import React from "react";
 import closeSquare from "../assets/close-square.svg";
 interface CostModalProps {
   setOpenModal: (value: boolean) => void; // Function that updates state

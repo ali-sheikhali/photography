@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import{ useEffect, useRef, useState } from "react";
 import useIsMobile from "../hooks/useIsMobile";
 import AddModal from "./AddModal";
 import NewPhoto from "./NewPhoto";
@@ -12,6 +12,7 @@ interface Photos {
   photographerId: number;
   url: string;
   genre: string;
+  name:string;
 }
 interface BottomSheetRef {
   open: () => void;
@@ -38,7 +39,7 @@ const AddPhoto = () => {
     const loadPhoto = async () => {
       try {
         setLoading(true);
-        const data: Photos = await fetchPhoto();
+        const data: Photos[] = await fetchPhoto();
         setPhotos(data);
       } catch (error) {
         console.error("خطا در دریافت لیست عکاسان:", error);
@@ -95,7 +96,7 @@ const AddPhoto = () => {
               <NewPhoto
                 setOpenModal={setOpenModal}
                 title="افزودن عکاس"
-                onPhotoAdded={(newPhoto) => {
+                onPhotoAdded={(newPhoto:Photos) => {
                   setPhotos((prevPhotos) => [...prevPhotos, newPhoto]);
                 }}
               />
@@ -111,7 +112,7 @@ const AddPhoto = () => {
         <NewPhoto
           bottomSheetRef={bottomSheetRef}
           title="افزودن عکاس"
-          onPhotoAdded={(newPhoto) => {
+          onPhotoAdded={(newPhoto:Photos) => {
             setPhotos((prevPhotos) => [...prevPhotos, newPhoto]);
           }}
         />

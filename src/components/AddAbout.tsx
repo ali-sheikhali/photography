@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BottomSheet from "@wldyslw/react-bottom-sheet";
 import AddModal from "./AddModal";
 import NewAbout from "./NewAbout";
