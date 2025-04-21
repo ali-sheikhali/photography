@@ -16,6 +16,7 @@ const TopPhotographers: React.FC = () => {
         ...photographer,
         portfolio: photos
           .filter((photo) => photo.photographerId === photographer.id) 
+          .slice(0, 4)
           .map((photo) => photo.url),
       }));
 

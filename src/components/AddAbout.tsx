@@ -50,12 +50,12 @@ const AddAbout = () => {
       </div>
       <div className="w-full flex flex-col md:flex-row gap-8">
         <img
-          src={about.image}
+          src={about[0].image}
           alt="about-us"
           className="rounded-xl xl:rounded-2xl w-full h-72 md:h-96 md:w-6/12"
         />
         <p className="text-[#FAFAFA] leading-7 md:w-6/12 md:leading-9 xl:leading-12 2xl:leading-14">
-          {about.description}
+          {about[0].description}
         </p>
       </div>
       {openModal && (
