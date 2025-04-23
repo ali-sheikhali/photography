@@ -78,7 +78,7 @@ function NavBarHome({ scrollToSection }: Services) {
         >
           <div className="flex items-center justify-center gap-2 cursor-pointer">
             <p>Kokoro__photography</p>
-            <img src={instagram1} alt="instagram" />
+            <img src={instagram1} alt="instagram" className="mb-1" />
           </div>
         </a>
       </div>

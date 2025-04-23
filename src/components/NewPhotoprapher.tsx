@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import closeSquare from "../assets/close-square.svg";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -35,6 +35,8 @@ const NewPhotoprapher = ({
     name: Yup.string().required("نام را وارد کنید."),
     genre: Yup.string().required("دسته بندی را انتخاب کنید."),
   });
+    const [uploadingImage, setUploadingImage] = useState<boolean>(false);
+  
   const formik = useFormik<FormValue>({
     initialValues: {
       image: { url: "" },
@@ -74,11 +76,14 @@ const NewPhotoprapher = ({
   const handleChoiceImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setUploadingImage(true)
       try {
         const uploadedImage = await uploadImage(file);
         formik.setFieldValue("image", uploadedImage);
+        setUploadingImage(false)
       } catch (error) {
         alert(error);
+        setUploadingImage(false)
       }
     }
   };
@@ -97,7 +102,7 @@ const NewPhotoprapher = ({
         <div>
           {formik.values.image && formik.values.image.url ? (
             <img
-              src={formik.values.image}
+              src={formik.values.image.url}
               alt="Uploaded"
               className="h-[14rem] md:h-[17rem] w-full object-cover rounded-lg"
             />
@@ -107,7 +112,7 @@ const NewPhotoprapher = ({
               className="h-[14rem] md:h-[17rem] px-4 py-2 border border-dashed  flex flex-col items-center justify-center rounded-lg gap-2 cursor-pointer"
             >
               <img src={addSquare} alt="add" />
-              <p>بارگذاری عکس</p>
+              <p>{uploadingImage ? "در حال بارگذاری" : "بارگزاری عکس"}</p>
             </label>
           )}
 
