@@ -1,11 +1,20 @@
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
 import { Play, Pause } from "lucide-react";
-import music from "../../assets/music.mp3";
+
+import music0 from "../../assets/music/music1.mp3";
+import music1 from "../../assets/music/music2.mp3";
+import music2 from "../../assets/music/music3.mp3";
+import music3 from "../../assets/music/music4.mp3";
+import music4 from "../../assets/music/music5.mp3";
+
+const playlist = [music0, music1, music2, music3, music4];
+
 export default function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const progressBarRef = useRef<HTMLDivElement | null>(null);
 
@@ -23,7 +32,7 @@ export default function AudioPlayer() {
       audio.removeEventListener("loadeddata", setAudioData);
       audio.removeEventListener("timeupdate", setAudioTime);
     };
-  }, []);
+  }, [currentTrackIndex]);
 
   const togglePlayPause = () => {
     const audio = audioRef.current;
@@ -46,6 +55,15 @@ export default function AudioPlayer() {
     audio.currentTime = percent * duration;
   };
 
+  const handleTrackEnd = () => {
+    if (currentTrackIndex < playlist.length - 1) {
+      setCurrentTrackIndex((prev) => prev + 1);
+    } else {
+      setCurrentTrackIndex(0);
+      setIsPlaying(false);
+    }
+  };
+
   const formatTime = (time: number) => {
     if (isNaN(time)) return "0:00";
     const minutes = Math.floor(time / 60);
@@ -62,17 +80,11 @@ export default function AudioPlayer() {
           onClick={togglePlayPause}
           className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-black"
         >
-          {isPlaying ? (
-            <Pause size={16} />
-          ) : (
-            <Play size={16} className="ml-0.5" />
-          )}
+          {isPlaying ? <Pause size={16} /> : <Play size={16} className="ml-0.5" />}
         </button>
 
         {/* Current Time */}
-        <div className="text-white text-sm min-w-[40px]">
-          {formatTime(currentTime)}
-        </div>
+        <div className="text-white text-sm min-w-[40px]">{formatTime(currentTime)}</div>
 
         {/* Progress Bar */}
         <div
@@ -85,19 +97,17 @@ export default function AudioPlayer() {
             style={{ right: `${100 - (currentTime / duration) * 100}%` }}
           />
         </div>
+
         {/* Duration */}
-        <div className="text-white text-sm min-w-[40px] text-right">
-          {formatTime(duration)}
-        </div>
+        <div className="text-white text-sm min-w-[40px] text-right">{formatTime(duration)}</div>
       </div>
 
       {/* Hidden Audio Element */}
       <audio
         ref={audioRef}
         autoPlay
-        loop
-        src={music}
-        onEnded={() => setIsPlaying(false)}
+        src={playlist[currentTrackIndex]}
+        onEnded={handleTrackEnd}
       />
     </div>
   );
