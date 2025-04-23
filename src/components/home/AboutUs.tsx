@@ -1,4 +1,4 @@
-import{ useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SubTitle from "./SubTitle";
 import { fetchAbout } from "../../services/fetchAbout";
 
@@ -7,7 +7,7 @@ interface About {
   description: string;
 }
 const AboutUs = () => {
-  const [about, setAbout] = useState<About[]>([]);
+  const [about, setAbout] = useState<About | null>(null);
   useEffect(() => {
     const loadAbout = async () => {
       try {
@@ -19,6 +19,9 @@ const AboutUs = () => {
     };
     loadAbout();
   }, []);
+  if (!about) {
+    return <></>;
+  }
   return (
     <div className="flex flex-col gap-8">
       <SubTitle title="درباره ما" />

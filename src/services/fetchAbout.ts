@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://kokoro.liara.run/api/about";
+const API_URL = "https://kokoro-photo.liara.run/api/about";
 
 export const fetchAbout = async () => {
   try {

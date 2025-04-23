@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://kokoro.liara.run/api/photographers";
+const API_URL = "https://kokoro-photo.liara.run/api/photographers";
 
 export const deletePhotographer = async (id: string) => {
   try {
