@@ -50,7 +50,7 @@ function NavBarHome({ scrollToSection }: Services) {
       <div className="w-11/12 mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/">
-          <img src={logo} alt="logo" />
+            <img src={logo} alt="logo" />
           </Link>
           <button className="sm:hidden" onClick={() => setOpenMenu(true)}>
             <img src={menu} alt="menu" />
@@ -67,14 +67,20 @@ function NavBarHome({ scrollToSection }: Services) {
             </p>
             <p>تماس با ما</p>
             <Link to="/blogs">
-            <p>بلاگ</p>
+              <p>بلاگ</p>
             </Link>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-2">
-          <p>kokoro.official</p>
-          <img src={instagram1} alt="instagram" />
-        </div>
+        <a
+          href="https://www.instagram.com/Kokoro__photography"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="flex items-center justify-center gap-2 cursor-pointer">
+            <p>Kokoro__photography</p>
+            <img src={instagram1} alt="instagram" />
+          </div>
+        </a>
       </div>
       <div
         ref={menuRef}
@@ -89,7 +95,7 @@ function NavBarHome({ scrollToSection }: Services) {
           </p>
           <p>تماس با ما</p>
           <Link to="/blogs">
-          <p>بلاگ</p>
+            <p>بلاگ</p>
           </Link>
         </div>
       </div>

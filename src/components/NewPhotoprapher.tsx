@@ -21,7 +21,7 @@ interface NewPhotoprapherProps {
 interface FormValue {
   image: UploadedImage;
   name: string;
-  photographer: string;
+  genre: string;
   
 }
 
@@ -34,20 +34,20 @@ const NewPhotoprapher = ({
   const validationSchema = Yup.object({
     image: Yup.mixed().required("عکس را وارد کنید."),
     name: Yup.string().required("نام را وارد کنید."),
-    photographer: Yup.string().required("عکاس را انتخاب کنید."),
+    genre: Yup.string().required("دسته بندی را انتخاب کنید."),
   });
   const formik = useFormik<FormValue>({
     initialValues: {
       image: { url: "" },
       name: "",
-      photographer: "",
+      genre: "",
     },
     validationSchema,
     onSubmit: async (values: FormValue) => {
       const formattedValues = {
         image: values.image.url,
         name: values.name,
-        genre: values.photographer,
+        genre: values.genre,
       };
 
       try {
@@ -79,7 +79,7 @@ const NewPhotoprapher = ({
         const uploadedImage = await uploadImage(file);
         formik.setFieldValue("image", uploadedImage);
       } catch (error) {
-        alert("آپلود تصویر با خطا مواجه شد", error);
+        alert( error);
       }
     }
   };
@@ -96,7 +96,7 @@ const NewPhotoprapher = ({
       </div>
       <form className="flex flex-col gap-4" onSubmit={formik.handleSubmit}>
         <div>
-          {formik.values.image ? (
+          {formik.values.image && formik.values.image.url ? (
             <img
               src={formik.values.image}
               alt="Uploaded"
@@ -135,13 +135,13 @@ const NewPhotoprapher = ({
         <FormError title="name" formik={formik} />
         <div className="relative w-full">
           <select
-            name="photographer"
-            value={formik.values.photographer}
+            name="genre"
+            value={formik.values.genre}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className={`appearance-none w-full focus:outline-none border border-[#247D7B] py-2 px-4 rounded-md bg-transparent 
                     ${
-                      formik.values.photographer
+                      formik.values.genre
                         ? "text-white"
                         : "text-[#737373]"
                     }`}
@@ -159,7 +159,7 @@ const NewPhotoprapher = ({
             <img src={arrowDown} alt="" />
           </div>
         </div>
-        <FormError title="photographer" formik={formik} />
+        <FormError title="genre" formik={formik} />
 
         <div className="w-full flex justify-end ">
           <button className="buttonOfSuggest cursor-pointer" type="submit">

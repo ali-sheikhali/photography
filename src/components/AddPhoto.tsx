@@ -95,7 +95,7 @@ const AddPhoto = () => {
             <AddModal rounded={false}>
               <NewPhoto
                 setOpenModal={setOpenModal}
-                title="افزودن عکاس"
+                title="افزودن عکس"
                 onPhotoAdded={(newPhoto:Photos) => {
                   setPhotos((prevPhotos) => [...prevPhotos, newPhoto]);
                 }}
@@ -111,7 +111,7 @@ const AddPhoto = () => {
       >
         <NewPhoto
           bottomSheetRef={bottomSheetRef}
-          title="افزودن عکاس"
+          title="افزودن عکس"
           onPhotoAdded={(newPhoto:Photos) => {
             setPhotos((prevPhotos) => [...prevPhotos, newPhoto]);
           }}

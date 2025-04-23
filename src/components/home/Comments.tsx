@@ -3,6 +3,8 @@ import SubTitle from "./SubTitle";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { fetchComments } from "../../services/fetchComments";
+import "swiper/css";
+import "swiper/css/pagination";
 interface Comments {
   id: number;
   name: string;
