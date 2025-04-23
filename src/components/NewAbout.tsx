@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import closeSquare from "../assets/close-square.svg";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -22,6 +22,8 @@ const NewAbout = ({
   bottomSheetRef,
 }: //   onBlogAdded,
 NewAboutProps) => {
+  const [uploadingImage, setUploadingImage] = useState<boolean>(false);
+
   const handleClick = () => {
     if (setOpenModal) {
       setOpenModal(false);
@@ -47,7 +49,7 @@ NewAboutProps) => {
       };
       try {
         await submitAbout(formData);
-       
+
         if (setOpenModal) {
           setOpenModal(false);
         } else {
@@ -62,10 +64,13 @@ NewAboutProps) => {
   const handleChoiceImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setUploadingImage(true);
       try {
         const uploadedImage = await uploadImage(file);
         formik.setFieldValue("image", uploadedImage.url);
-      } catch (error) {
+        setUploadingImage(false);
+      } catch {
+        setUploadingImage(false);
         alert("آپلود تصویر با خطا مواجه شد");
       }
     }
@@ -95,7 +100,7 @@ NewAboutProps) => {
               className="h-[14rem] md:h-[17rem] px-4 py-2 border border-dashed  flex flex-col items-center justify-center rounded-lg gap-2 cursor-pointer"
             >
               <img src={addSquare} alt="add" />
-              <p>بارگزاری عکس</p>
+              <p>{uploadingImage ? "در حال بارگذاری" : "بارگزاری عکس"}</p>
             </label>
           )}
 

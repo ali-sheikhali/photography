@@ -53,7 +53,7 @@ const NewPhoto = ({
         await fetchPhoto();
       } catch (error) {
         console.error("خطا در دریافت عکس‌ها:", error);
-      } 
+      }
     };
     loadPhotos();
   }, []);
@@ -134,7 +134,7 @@ const NewPhoto = ({
               className="h-[14rem] md:h-[17rem] px-4 py-2 border border-dashed  flex flex-col items-center justify-center rounded-lg gap-2 cursor-pointer"
             >
               <img src={addSquare} alt="add" />
-              <p>بارگزاری عکس</p>
+              <p>بارگذاری عکس</p>
             </label>
           )}
 

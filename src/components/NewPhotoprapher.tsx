@@ -22,7 +22,6 @@ interface FormValue {
   image: UploadedImage;
   name: string;
   genre: string;
-  
 }
 
 const NewPhotoprapher = ({
@@ -79,7 +78,7 @@ const NewPhotoprapher = ({
         const uploadedImage = await uploadImage(file);
         formik.setFieldValue("image", uploadedImage);
       } catch (error) {
-        alert( error);
+        alert(error);
       }
     }
   };
@@ -108,7 +107,7 @@ const NewPhotoprapher = ({
               className="h-[14rem] md:h-[17rem] px-4 py-2 border border-dashed  flex flex-col items-center justify-center rounded-lg gap-2 cursor-pointer"
             >
               <img src={addSquare} alt="add" />
-              <p>بارگزاری عکس</p>
+              <p>بارگذاری عکس</p>
             </label>
           )}
 
@@ -140,11 +139,7 @@ const NewPhotoprapher = ({
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className={`appearance-none w-full focus:outline-none border border-[#247D7B] py-2 px-4 rounded-md bg-transparent 
-                    ${
-                      formik.values.genre
-                        ? "text-white"
-                        : "text-[#737373]"
-                    }`}
+                    ${formik.values.genre ? "text-white" : "text-[#737373]"}`}
           >
             <option value="" disabled className="text-[#737373]">
               دسته بندی خود را انتخاب کنید
