@@ -60,9 +60,9 @@ const AddPhotographer = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-4 md:gap-8">
       <div className="w-full flex justify-end items-end">
-        <div className=" w-6/12 md:w-2/12 " onClick={handleAddPhotographer}>
+        <div className=" w-5/12 md:w-2/12 " onClick={handleAddPhotographer}>
           <button className="buttonOfForm cursor-pointer">افزودن</button>
         </div>
       </div>
@@ -73,7 +73,7 @@ const AddPhotographer = () => {
           {photographers.map((photographer) => (
             <div
               key={photographer.id}
-              className=" p-4 h-[280px] md:h-[390px] rounded-lg relative"
+              className="  h-[280px] md:h-[390px] rounded-lg relative"
             >
               <img
                 src={photographer.image}
@@ -115,6 +115,7 @@ const AddPhotographer = () => {
       >
         <NewPhotoprapher
           setOpenModal={setOpenModal}
+          buttonSheetClose
           bottomSheetRef={bottomSheetRef}
           title="افزودن عکاس"
           onPhotographerAdded={(newPhotographer) => {

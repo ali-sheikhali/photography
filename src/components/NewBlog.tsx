@@ -9,6 +9,7 @@ import { submitBlog } from "../services/blogServices";
 interface NewBlogProps {
   setOpenModal?: (value: boolean) => void;
   title: string;
+  buttonSheetClose?: boolean;
   bottomSheetRef?: React.RefObject<{ close?: () => void }>;
   onBlogAdded?: (blog: FormValue) => void;
 }
@@ -22,6 +23,7 @@ const NewBlog = ({
   setOpenModal,
   bottomSheetRef,
   onBlogAdded,
+  buttonSheetClose
 }: NewBlogProps) => {
   const [uploadingImage, setUploadingImage] = useState<boolean>(false);
 
@@ -85,7 +87,7 @@ const NewBlog = ({
       <div className="flex items-center justify-between">
         <p>{title}</p>
         <img
-          className="cursor-pointer"
+          className={`cursor-pointer ${buttonSheetClose ? "hidden" : "block"}`}
           onClick={handleClick}
           src={closeSquare}
           alt="close-square"

@@ -169,7 +169,7 @@ function NavBar() {
         </div>
       )}
       <BottomSheet
-        detents={["65%"]}
+        detents={["40%"]}
         ref={bottomSheetRef}
         className="!bg-[#171717] text-white w-full py-4 mx-auto"
       >

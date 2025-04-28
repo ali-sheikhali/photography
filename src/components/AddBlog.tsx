@@ -165,6 +165,7 @@ const AddBlog = () => {
         <NewBlog
           title="بلاگ جدید"
           bottomSheetRef={bottomSheetRef}
+          buttonSheetClose
           onBlogAdded={(newBlog: Blog) => {
             setRowData((prevBlog) => [...prevBlog, newBlog]);
           }}

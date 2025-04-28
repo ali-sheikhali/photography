@@ -15,7 +15,7 @@ function MainLogin({ children }:MainLoginProps) {
     >
       <div
         className={`absolute inset-0 ${
-          bgImage ? "bg-[#1D1818]" : "bg-none"
+          bgImage ? "bg-[#1D1818] h-screen" : "bg-none"
         } opacity-80`}
       ></div>
       <div

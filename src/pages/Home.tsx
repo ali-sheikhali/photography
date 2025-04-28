@@ -20,7 +20,7 @@ function Home() {
       <NavBarHome scrollToSection={{
             work: () => workRef.current?.scrollIntoView({ behavior: "smooth" }),
           }}  />
-      <main className="w-11/12 mx-auto flex flex-col gap-20 mt-8">
+      <main className="w-11/12 mx-auto overflow-hidden flex flex-col gap-20 mt-8">
         <HeroHeader />
         <div ref={servicesRef}>
           <Services />

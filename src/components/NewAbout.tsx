@@ -9,6 +9,7 @@ import { submitAbout } from "../services/aboutServices";
 interface NewAboutProps {
   setOpenModal?: (value: boolean) => void;
   title: string;
+  buttonSheetClose?: boolean;
   bottomSheetRef?: React.RefObject<{ close?: () => void }>;
   //   onBlogAdded?: (about: FormValue) => void;
 }
@@ -20,6 +21,7 @@ const NewAbout = ({
   title,
   setOpenModal,
   bottomSheetRef,
+  buttonSheetClose
 }: //   onBlogAdded,
 NewAboutProps) => {
   const [uploadingImage, setUploadingImage] = useState<boolean>(false);
@@ -80,7 +82,7 @@ NewAboutProps) => {
       <div className="flex items-center justify-between">
         <p>{title}</p>
         <img
-          className="cursor-pointer"
+          className={`cursor-pointer ${buttonSheetClose ? "hidden" : "block"}`}
           onClick={handleClick}
           src={closeSquare}
           alt="close-square"

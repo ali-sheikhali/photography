@@ -86,6 +86,7 @@ const AddAbout = () => {
       >
         <NewAbout
           title="درباره ما جدید"
+          buttonSheetClose
           bottomSheetRef={bottomSheetRef}
           // onBlogAdded = {(newBlog)=>{
           //     setRowData((prevBlog)=> [...prevBlog , newBlog])

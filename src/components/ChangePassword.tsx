@@ -77,7 +77,7 @@ const ChangePassword = ({
 
         <div className="w-full flex justify-end ">
           <button className="buttonOfSuggest cursor-pointer" type="submit">
-            ارسال
+            ذخیره
           </button>
         </div>
       </form>

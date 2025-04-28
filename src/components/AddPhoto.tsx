@@ -111,6 +111,7 @@ const AddPhoto = () => {
       >
         <NewPhoto
           bottomSheetRef={bottomSheetRef}
+          buttonSheetClose
           title="افزودن عکس"
           onPhotoAdded={(newPhoto:Photos) => {
             setPhotos((prevPhotos) => [...prevPhotos, newPhoto]);

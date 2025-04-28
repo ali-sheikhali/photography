@@ -28,7 +28,7 @@ const Footer = ({ scrollToSection }: FooterProps) => {
           </div>
         </div>
         <div className="flex flex-col gap-4 text-white w-4/12">
-          <h3 className="font-bold text-base md:text-xl">دسترسی سریع</h3>
+          <h3 className="font-bold text-sm md:text-xl">دسترسی سریع</h3>
           <p className="cursor-pointer" onClick={scrollToSection?.services}>
             سرویس های کوکورو
           </p>

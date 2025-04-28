@@ -14,7 +14,7 @@ interface FormValue {
 function Login() {
  
   const validationSchema = Yup.object({
-    email: Yup.string().required("لطفا ایمیل را وارد کنید."),
+    email: Yup.string().required("لطفا نام کاربری را وارد کنید."),
     password: Yup.string().required("لطفا رمز را وارد کنید."),
   });
   const formik = useFormik<FormValue>({
@@ -43,7 +43,7 @@ function Login() {
           <FormFiled
             type="text"
             name="email"
-            label="لطفا ایمیل خود را وارد کنید."
+            label="لطفا نام کاربری خود را وارد کنید."
             placeHolder="ایمیل"
             onBlur={formik.handleBlur}
             formik={formik}
@@ -59,9 +59,9 @@ function Login() {
 
           />
           <FormError title="password" formik={formik} />
-          <Link to="/forget-password">
+          {/* <Link to="/forget-password">
             <p className="text-[#247D7B] ">فراموشی رمز ورود</p>
-          </Link>
+          </Link> */}
         </div>
         <button className="buttonOfForm cursor-pointer" type="submit">
          ورود

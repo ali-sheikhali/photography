@@ -13,6 +13,7 @@ interface UploadedImage {
 }
 interface NewPhotoprapherProps {
   setOpenModal?: (value: boolean) => void;
+  buttonSheetClose?: boolean;
   title: string;
   bottomSheetRef?: React.RefObject<{ close?: () => void }>;
   onPhotographerAdded?: (photographer: Photographer) => void;
@@ -29,6 +30,7 @@ const NewPhotoprapher = ({
   setOpenModal,
   bottomSheetRef,
   onPhotographerAdded,
+  buttonSheetClose,
 }: NewPhotoprapherProps) => {
   const validationSchema = Yup.object({
     image: Yup.mixed().required("عکس را وارد کنید."),
@@ -92,7 +94,7 @@ const NewPhotoprapher = ({
       <div className="flex items-center justify-between">
         <p>{title}</p>
         <img
-          className="cursor-pointer"
+          className={`cursor-pointer ${buttonSheetClose ? "hidden" : "block"}`}
           onClick={handleClick}
           src={closeSquare}
           alt="close-square"

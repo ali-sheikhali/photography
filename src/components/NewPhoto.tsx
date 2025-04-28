@@ -14,6 +14,7 @@ interface NewPhotoprapherProps {
   setOpenModal?: (value: boolean) => void;
   bottomSheetRef?: React.RefObject<{ close?: () => void }>;
   title: string;
+  buttonSheetClose?: boolean;
   onPhotoAdded?: (photographer: Photographer) => void;
 }
 interface FormValue {
@@ -32,6 +33,7 @@ const NewPhoto = ({
   setOpenModal,
   bottomSheetRef,
   onPhotoAdded,
+  buttonSheetClose
 }: NewPhotoprapherProps) => {
   const [photographers, setPhotographers] = useState<Photographer[]>([]);
       const [uploadingImage, setUploadingImage] = useState<boolean>(false);
@@ -118,7 +120,7 @@ const NewPhoto = ({
       <div className="flex items-center justify-between">
         <p>{title}</p>
         <img
-          className="cursor-pointer"
+          className={`cursor-pointer ${buttonSheetClose ? "hidden" : "block"}`}
           onClick={handleClick}
           src={closeSquare}
           alt="close-square"
