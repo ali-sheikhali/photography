@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 interface Services {
   scrollToSection?: {
     work: () => void;
+    footer: () => void;
   };
 }
 interface BottomSheetRef {
@@ -65,7 +66,7 @@ function NavBarHome({ scrollToSection }: Services) {
             <p className="cursor-pointer" onClick={() => setOpenModal(true)}>
               لیست قیمت
             </p>
-            <p>تماس با ما</p>
+            <p className="cursor-pointer" onClick={() => scrollToSection?.footer()}>تماس با ما</p>
             <Link to="/blogs">
               <p>بلاگ</p>
             </Link>
@@ -89,17 +90,26 @@ function NavBarHome({ scrollToSection }: Services) {
         }`}
       >
         <div className="w-10/12 mx-auto flex flex-col gap-4 py-6">
-          <p onClick={()=> {
-            scrollToSection?.work()
-            setOpenMenu(false)
-          }
-          } 
-            
-            >نمونه کارها</p>
+          <p
+            onClick={() => {
+              scrollToSection?.work();
+              setOpenMenu(false);
+            }}
+          >
+            نمونه کارها
+          </p>
           <p className="cursor-pointer" onClick={handleClick}>
             لیست قیمت
           </p>
-          <p>تماس با ما</p>
+          <p
+          className="cursor-pointer"
+            onClick={() => {
+              scrollToSection?.footer();
+              setOpenMenu(false);
+            }}
+          >
+            تماس با ما
+          </p>
           <Link to="/blogs">
             <p>بلاگ</p>
           </Link>
@@ -116,7 +126,6 @@ function NavBarHome({ scrollToSection }: Services) {
       <BottomSheet
         detents={["70%"]}
         ref={bottomSheetRef}
-        
         className="bg-black h-full text-white"
       >
         <CostModal setOpenModal={setOpenModal} rounded={true} />

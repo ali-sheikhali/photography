@@ -20,11 +20,11 @@ const Footer = ({ scrollToSection }: FooterProps) => {
           <h3 className="font-bold text-xl">ارتباط با ما</h3>
           <div className="flex gap-2">
             <img src={callCalling} alt="" />
-            <p>۰۲۱-۲۲۵۶۷۸۹۶</p>
+            <p>09194977136</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex text-sm gap-2">
             <img src={sms} alt="" />
-            <p>kokoro1390@gmail.com</p>
+            <p>mehdiahmadian2016@gmail.com</p>
           </div>
         </div>
         <div className="flex flex-col gap-4 text-white w-4/12">
@@ -49,9 +49,9 @@ const Footer = ({ scrollToSection }: FooterProps) => {
                 <img src={callCalling} alt="" />
                 <p>09194977136</p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex text-[12px] sm:text-base gap-2">
                 <img src={sms} alt="" />
-                <p>kokoro1390@gmail.com</p>
+                <p>mehdiahmadian2016@gmail.com</p>
               </div>
             </div>
             <p className="w-10/12 mx-auto text-center text-sm">

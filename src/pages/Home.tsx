@@ -10,23 +10,27 @@ import AboutUs from "../components/home/AboutUs";
 import Footer from "../components/home/Footer";
 
 function Home() {
-    const servicesRef = useRef<HTMLDivElement | null>(null);
-    const workRef = useRef<HTMLDivElement | null>(null);
-    const commentsRef = useRef<HTMLDivElement | null>(null);
-    const aboutUsRef = useRef<HTMLDivElement | null>(null);
-    
+  const servicesRef = useRef<HTMLDivElement | null>(null);
+  const workRef = useRef<HTMLDivElement | null>(null);
+  const commentsRef = useRef<HTMLDivElement | null>(null);
+  const aboutUsRef = useRef<HTMLDivElement | null>(null);
+  const footerRef = useRef<HTMLDivElement | null>(null);
   return (
     <div className="bg-[#1D1818]">
-      <NavBarHome scrollToSection={{
-            work: () => workRef.current?.scrollIntoView({ behavior: "smooth" }),
-          }}  />
+      <NavBarHome
+        scrollToSection={{
+          work: () => workRef.current?.scrollIntoView({ behavior: "smooth" }),
+          footer: () =>
+            footerRef.current?.scrollIntoView({ behavior: "smooth" }),
+        }}
+      />
       <main className="w-11/12 mx-auto overflow-hidden flex flex-col gap-20 mt-8">
         <HeroHeader />
         <div ref={servicesRef}>
           <Services />
         </div>
         <div ref={workRef}>
-          <ExampleOfWork  />
+          <ExampleOfWork />
         </div>
       </main>
       <div className="my-20 flex flex-col gap-20">
@@ -41,14 +45,20 @@ function Home() {
           </div>
         </div>
       </div>
-      <Footer 
-        scrollToSection={{
-          services: () => servicesRef.current?.scrollIntoView({ behavior: "smooth" }),
-          work: () => workRef.current?.scrollIntoView({ behavior: "smooth" }),
-          comments: () => commentsRef.current?.scrollIntoView({ behavior: "smooth" }),
-          aboutUs: () => aboutUsRef.current?.scrollIntoView({ behavior: "smooth" })
-        }}
-      />
+      <div ref={footerRef}>
+        <Footer
+          
+          scrollToSection={{
+            services: () =>
+              servicesRef.current?.scrollIntoView({ behavior: "smooth" }),
+            work: () => workRef.current?.scrollIntoView({ behavior: "smooth" }),
+            comments: () =>
+              commentsRef.current?.scrollIntoView({ behavior: "smooth" }),
+            aboutUs: () =>
+              aboutUsRef.current?.scrollIntoView({ behavior: "smooth" }),
+          }}
+        />
+      </div>
     </div>
   );
 }
