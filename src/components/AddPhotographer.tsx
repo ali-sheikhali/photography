@@ -62,7 +62,7 @@ const AddPhotographer = () => {
   return (
     <div className="flex flex-col gap-4 md:gap-8">
       <div className="w-full flex justify-end items-end">
-        <div className=" w-5/12 md:w-2/12 " onClick={handleAddPhotographer}>
+        <div className=" w-4/12 md:w-2/12 " onClick={handleAddPhotographer}>
           <button className="buttonOfForm cursor-pointer">افزودن</button>
         </div>
       </div>

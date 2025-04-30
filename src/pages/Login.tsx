@@ -44,7 +44,7 @@ function Login() {
             type="text"
             name="email"
             label="لطفا نام کاربری خود را وارد کنید."
-            placeHolder="ایمیل"
+            placeHolder="نام کاربری"
             onBlur={formik.handleBlur}
             formik={formik}
           />

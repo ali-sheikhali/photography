@@ -48,7 +48,7 @@ const AddAbout = () => {
   return (
     <div className="flex flex-col gap-8">
       <div className="w-full flex justify-end items-end">
-        <div className="w-6/12 md:w-2/12" onClick={handleAddAbout}>
+        <div className="w-4/12 md:w-2/12" onClick={handleAddAbout}>
           <button className="buttonOfForm cursor-pointer">افزودن</button>
         </div>
       </div>
@@ -68,7 +68,7 @@ const AddAbout = () => {
           <div className="relative w-6/12 rounded-lg py-8 px-4">
             <AddModal rounded={false}>
               <NewAbout
-                title="درباره ما جدید"
+                title="درباره ما"
                 setOpenModal={setOpenModal}
                 //   onBlogAdded = {(newBlog)=>{
                 //     setRowData((prevBlog)=> [...prevBlog , newBlog])
@@ -85,7 +85,7 @@ const AddAbout = () => {
         className="!bg-[#171717] text-white w-full py-4 mx-auto"
       >
         <NewAbout
-          title="درباره ما جدید"
+          title="درباره ما "
           buttonSheetClose
           bottomSheetRef={bottomSheetRef}
           // onBlogAdded = {(newBlog)=>{

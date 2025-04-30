@@ -89,7 +89,13 @@ function NavBarHome({ scrollToSection }: Services) {
         }`}
       >
         <div className="w-10/12 mx-auto flex flex-col gap-4 py-6">
-          <p>نمونه کارها</p>
+          <p onClick={()=> {
+            scrollToSection?.work()
+            setOpenMenu(false)
+          }
+          } 
+            
+            >نمونه کارها</p>
           <p className="cursor-pointer" onClick={handleClick}>
             لیست قیمت
           </p>
@@ -110,6 +116,7 @@ function NavBarHome({ scrollToSection }: Services) {
       <BottomSheet
         detents={["70%"]}
         ref={bottomSheetRef}
+        
         className="bg-black h-full text-white"
       >
         <CostModal setOpenModal={setOpenModal} rounded={true} />

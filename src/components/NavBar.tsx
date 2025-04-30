@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import logo from "../assets/logo.png";
+import logo from "../assets/KOKOro.svg";
 import profile from "../assets/Profile.jpg";
 import lock from "../assets/lock.png";
 import logOut from "../assets/logout.png";
@@ -80,7 +80,7 @@ function NavBar() {
   return (
     <div className="w-full bg-[#0A0A0A] text-white relative">
       <div className="w-11/12 mx-auto flex items-center gap-6 relative">
-        <img src={logo} alt="Logo" />
+        {/* <img src={logo} alt="Logo" className="" /> */}
         <div className="relative dropdown-container z-30">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -89,7 +89,7 @@ function NavBar() {
             <figure>
               <img
                 className="rounded-full w-12 h-12"
-                src={profile}
+                src={logo}
                 alt="Profile"
               />
             </figure>
@@ -103,7 +103,7 @@ function NavBar() {
           )}
 
           {isOpen && (
-            <ul className="absolute top-16 z-20 bg-[#171717] rounded-md p-4 md:right-0 -right-28 text-[#D4D4D4] w-80 shadow">
+            <ul className="absolute top-16 z-20 bg-[#171717] rounded-md p-4 md:right-0 right-4 text-[#D4D4D4] w-80 shadow">
               <li className="flex items-center justify-between gap-3 border-b border-[#737373] p-4">
                 <div className="flex items-center gap-2">
                   <figure>

@@ -99,7 +99,7 @@ const AddBlog = () => {
   return (
     <div className="flex flex-col gap-8">
       <div className="w-full flex justify-end items-end">
-        <div className="w-6/12 md:w-2/12" onClick={handleAddBlog}>
+        <div className="w-4/12 md:w-2/12" onClick={handleAddBlog}>
           <button className="buttonOfForm cursor-pointer">افزودن</button>
         </div>
       </div>
