@@ -12,6 +12,8 @@ interface NewAboutProps {
   buttonSheetClose?: boolean;
   bottomSheetRef?: React.RefObject<{ close?: () => void }>;
   //   onBlogAdded?: (about: FormValue) => void;
+  onSubmitSuccess?: () => void; // ✅ اضافه شده
+
 }
 interface FormValue {
   image: string;
@@ -21,7 +23,8 @@ const NewAbout = ({
   title,
   setOpenModal,
   bottomSheetRef,
-  buttonSheetClose
+  buttonSheetClose,
+  onSubmitSuccess
 }: //   onBlogAdded,
 NewAboutProps) => {
   const [uploadingImage, setUploadingImage] = useState<boolean>(false);
@@ -56,6 +59,9 @@ NewAboutProps) => {
           setOpenModal(false);
         } else {
           bottomSheetRef?.current?.close?.();
+        }
+        if(onSubmitSuccess){
+          onSubmitSuccess()
         }
       } catch (error) {
         console.error(error);

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
 import AddPhotographer from "../components/AddPhotographer";
 import AddPhoto from "../components/AddPhoto";
 import AddBlog from "../components/AddBlog";
@@ -52,7 +51,7 @@ function Dashboard() {
         </div>
       </main>
 
-      <Footer />
+     
     </div>
   );
 }

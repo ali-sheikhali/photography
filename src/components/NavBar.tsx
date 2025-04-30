@@ -12,6 +12,7 @@ import BottomSheet from "@wldyslw/react-bottom-sheet";
 import ChangePassword from "./ChangePassword";
 import { fetchProfile } from "../services/fetchProfile";
 import { submitChangePassword } from "../services/changePassword";
+import { BsPerson } from "react-icons/bs";
 
 interface BottomSheetRef {
   open: () => void;
@@ -28,7 +29,9 @@ function NavBar() {
   const isMobile = useIsMobile();
   const bottomSheetRef = useRef<BottomSheetRef>(
     null as unknown as BottomSheetRef
-  );  
+  );
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   // Close dropdown when clicking outside
   const closeDropdown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!(e.target as HTMLElement).closest(".dropdown-container")) {
@@ -66,53 +69,66 @@ function NavBar() {
   const handleSubmitProfile = async () => {
     try {
       const updatedData: { username?: string } = {};
-  
+
       if (userName.username) {
         updatedData.username = userName.username;
       }
-  
-      await submitChangePassword(updatedData); 
+
+      await submitChangePassword(updatedData);
       setEditing(false);
     } catch (error) {
       console.error("خطا در ذخیره پروفایل", error);
     }
   };
+  useEffect(() => {
+    const handleClickOutSide = (event: MouseEvent) => {
+      if (
+        isOpen &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutSide);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutSide);
+    };
+  }, [isOpen]);
   return (
     <div className="w-full bg-[#0A0A0A] text-white relative">
       <div className="w-11/12 mx-auto flex items-center gap-6 relative">
         {/* <img src={logo} alt="Logo" className="" /> */}
-        <div className="relative dropdown-container z-30">
+        <div className="relative dropdown-container z-30" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="m-1 list-none relative z-30"
+            className="m-1 list-none relative z-30 py-2 cursor-pointer"
           >
-            <figure>
+            {/* <figure>
               <img
                 className="rounded-full w-12 h-12"
                 src={logo}
                 alt="Profile"
               />
-            </figure>
+            </figure> */}
+            <BsPerson size={36} />
           </button>
 
           {isOpen && (
-            <div
-              className="fixed inset-0 backdrop-blur-xl z-10"
-              onClick={closeDropdown}
-            ></div>
+            <div className="fixed inset-0 backdrop-blur-xl z-10 pointer-events-none"></div>
           )}
-
           {isOpen && (
             <ul className="absolute top-16 z-20 bg-[#171717] rounded-md p-4 md:right-0 right-4 text-[#D4D4D4] w-80 shadow">
               <li className="flex items-center justify-between gap-3 border-b border-[#737373] p-4">
                 <div className="flex items-center gap-2">
-                  <figure>
+                  {/* <figure>
                     <img
                       className="rounded-full w-8 h-8"
                       src={profile}
                       alt="Profile"
                     />
-                  </figure>
+                  </figure> */}
+                  <BsPerson size={36} className=" -mt-2 -top-1" />
                   {editing ? (
                     <>
                       <input
@@ -134,7 +150,9 @@ function NavBar() {
                     <p>{userName.username}</p>
                   )}
                 </div>
-           {!editing && <img onClick={()=> setEditing(true)} src={edit} alt="" /> } 
+                {!editing && (
+                  <img onClick={() => setEditing(true)} src={edit} alt="" />
+                )}
               </li>
               <li className="flex items-center justify-between gap-3 border-b border-[#737373] p-4">
                 <div className="flex items-center gap-2">

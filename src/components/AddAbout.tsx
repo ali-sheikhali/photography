@@ -13,13 +13,25 @@ interface About {
   image: string;
   description: string;
 }
+
 const AddAbout = () => {
   const [openModal, setOpenModal] = useState(false);
   const [about, setAbout] = useState<About | null>(null);
-  const bottomSheetRef = useRef<BottomSheetRef>(
-    null as unknown as BottomSheetRef
-  );
+  const bottomSheetRef = useRef<BottomSheetRef>(null as unknown as BottomSheetRef);
   const isMobile = useIsMobile();
+
+  const loadAbout = async () => {
+    try {
+      const data = await fetchAbout();
+      setAbout(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    loadAbout();
+  }, []);
 
   const handleAddAbout = () => {
     if (isMobile) {
@@ -29,21 +41,7 @@ const AddAbout = () => {
     }
   };
 
-  useEffect(() => {
-    const loadAbout = async () => {
-      try {
-        const data = await fetchAbout();
-        setAbout(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    loadAbout();
-  }, []);
-
-  if (!about) {
-    return <></>;
-  }
+  if (!about) return <></>;
 
   return (
     <div className="flex flex-col gap-8">
@@ -62,6 +60,7 @@ const AddAbout = () => {
           {about?.description}
         </p>
       </div>
+
       {openModal && (
         <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
           <div className="inset-0 absolute backdrop-blur-sm"></div>
@@ -70,9 +69,7 @@ const AddAbout = () => {
               <NewAbout
                 title="درباره ما"
                 setOpenModal={setOpenModal}
-                //   onBlogAdded = {(newBlog)=>{
-                //     setRowData((prevBlog)=> [...prevBlog , newBlog])
-                // }}
+                onSubmitSuccess={loadAbout}
               />
             </AddModal>
           </div>
@@ -88,9 +85,7 @@ const AddAbout = () => {
           title="درباره ما "
           buttonSheetClose
           bottomSheetRef={bottomSheetRef}
-          // onBlogAdded = {(newBlog)=>{
-          //     setRowData((prevBlog)=> [...prevBlog , newBlog])
-          // }}
+          onSubmitSuccess={loadAbout}
         />
       </BottomSheet>
     </div>
