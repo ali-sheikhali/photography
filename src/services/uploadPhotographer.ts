@@ -3,7 +3,7 @@ export const uploadImage = async (file: File) => {
     formData.append("file", file);
     
     try {
-      const response = await fetch("https://kokoro.liara.run/api/upload", {
+      const response = await fetch("https://kokoro-photo.liara.run/api/upload", {
         method: "POST",
         body: formData, 
         headers: {
