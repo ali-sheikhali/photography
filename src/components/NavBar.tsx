@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import logo from "../assets/KOKOro.svg";
-import profile from "../assets/Profile.jpg";
+// import logo from "../assets/KOKOro.svg";
+// import profile from "../assets/Profile.jpg";
 import lock from "../assets/lock.png";
 import logOut from "../assets/logout.png";
 import { AuthContext } from "../context/AuthContext";

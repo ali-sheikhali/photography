@@ -1,12 +1,9 @@
-import axios from "axios";
-
+import axiosInstance from "./axiosInstance";
 const API_URL = "https://kokoro-photo.liara.run/api/photos";
 
 export const deletePhoto = async (id: string) => {
   try {
-    await axios.delete(`${API_URL}/${id}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
+    await axiosInstance.delete(`${API_URL}/${id}`);
     return true;
   } catch (error) {
     console.error(error);

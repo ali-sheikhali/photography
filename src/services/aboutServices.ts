@@ -1,5 +1,4 @@
-import axios from "axios";
-
+import axiosInstance from "./axiosInstance";
 const API_URL = "https://kokoro-photo.liara.run/api/about";
 
 export const submitAbout = async (data: {
@@ -7,9 +6,7 @@ export const submitAbout = async (data: {
   description: string;
 }) => {
   try {
-    const response = await axios.post(API_URL, data, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
+    const response = await axiosInstance.post(API_URL, data);
     return response.data;
   } catch (error) {
     console.error(error);

@@ -33,47 +33,45 @@ export default function AudioPlayer() {
       audio.removeEventListener("timeupdate", setAudioTime);
     };
   }, [currentTrackIndex]);
+
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-  
-    audio.muted = true;
-    audio.volume = 0;
-    const playPromise = audio.play();
-  
-    // اگر مرورگر پخش رو قبول کرد
-    playPromise
-      ?.then(() => {
-        setIsPlaying(true);
-  
-        // بعد از کمی تاخیر، صدا رو باز کن
-        setTimeout(() => {
-          audio.muted = false;
-  
-          // صدا رو کم‌کم زیاد کن (fade-in)
-          let vol = 0;
-          const interval = setInterval(() => {
-            vol += 0.05;
-            if (audio && vol <= 1) {
-              audio.volume = Math.min(vol, 1);
-            } else {
-              clearInterval(interval);
-            }
-          }, 200); // هر ۲۰۰ms حجم رو زیاد کن
-        }, 1000); // یک ثانیه بعد از لود، شروع به افزایش صدا کن
-      })
-      .catch((err) => {
-        console.warn("Autoplay failed:", err);
-      });
-  }, [currentTrackIndex]);
+
+    const handleUserInteraction = () => {
+      if (!audio.paused) return;
+
+      audio.play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => console.warn("Autoplay blocked:", err));
+
+      // فقط یک بار اجرا بشه
+      window.removeEventListener("scroll", handleUserInteraction);
+      window.removeEventListener("click", handleUserInteraction);
+      window.removeEventListener("keydown", handleUserInteraction);
+    };
+
+    window.addEventListener("scroll", handleUserInteraction);
+    window.addEventListener("click", handleUserInteraction);
+    window.addEventListener("keydown", handleUserInteraction);
+
+    return () => {
+      window.removeEventListener("scroll", handleUserInteraction);
+      window.removeEventListener("click", handleUserInteraction);
+      window.removeEventListener("keydown", handleUserInteraction);
+    };
+  }, []);
+
   const togglePlayPause = () => {
     const audio = audioRef.current;
     if (!audio) return;
+
     if (isPlaying) {
       audio.pause();
     } else {
-      audio.play();
+      audio.play().catch((err) => console.warn("Play error:", err));
     }
+
     setIsPlaying(!isPlaying);
   };
 
@@ -105,9 +103,7 @@ export default function AudioPlayer() {
 
   return (
     <div className="relative w-full overflow-hidden rounded-xl px-5 py-3">
-      {/* Audio Controls */}
       <div className="flex items-center flex-row-reverse gap-3">
-        {/* Play/Pause Button */}
         <button
           onClick={togglePlayPause}
           className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-black"
@@ -115,10 +111,10 @@ export default function AudioPlayer() {
           {isPlaying ? <Pause size={16} /> : <Play size={16} className="ml-0.5" />}
         </button>
 
-        {/* Current Time */}
-        <div className="text-white text-sm min-w-[40px]">{formatTime(currentTime)}</div>
+        <div className="text-white text-sm min-w-[40px]">
+          {formatTime(currentTime)}
+        </div>
 
-        {/* Progress Bar */}
         <div
           ref={progressBarRef}
           onClick={handleProgressChange}
@@ -130,11 +126,11 @@ export default function AudioPlayer() {
           />
         </div>
 
-        {/* Duration */}
-        <div className="text-white text-sm min-w-[40px] text-right">{formatTime(duration)}</div>
+        <div className="text-white text-sm min-w-[40px] text-right">
+          {formatTime(duration)}
+        </div>
       </div>
 
-      {/* Hidden Audio Element */}
       <audio
         ref={audioRef}
         autoPlay
