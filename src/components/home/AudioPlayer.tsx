@@ -37,31 +37,44 @@ export default function AudioPlayer() {
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-
-    const handleUserInteraction = () => {
-      if (!audio.paused) return;
-
-      audio.play()
-        .then(() => setIsPlaying(true))
-        .catch((err) => console.warn("Autoplay blocked:", err));
-
+  
+    const handleInteraction = () => {
+      // اگر هنوز داره پخش می‌شه ولی mute هست، unmute کن
+      if (!audio.paused && audio.muted) {
+        audio.muted = false;
+        setIsPlaying(true);
+      }
+  
+      // اگر pause شده (و احتمالا مرورگر جلوشو گرفته)، دوباره play کن و unmute
+      if (audio.paused) {
+        audio.muted = false;
+        audio.play()
+          .then(() => setIsPlaying(true))
+          .catch((err) => console.warn("Play failed:", err));
+      }
+  
       // فقط یک بار اجرا بشه
-      window.removeEventListener("scroll", handleUserInteraction);
-      window.removeEventListener("click", handleUserInteraction);
-      window.removeEventListener("keydown", handleUserInteraction);
+      window.removeEventListener("click", handleInteraction);
+      window.removeEventListener("touchstart", handleInteraction);
+      window.removeEventListener("keydown", handleInteraction);
+      window.removeEventListener("scroll", handleInteraction);
     };
-
-    window.addEventListener("scroll", handleUserInteraction);
-    window.addEventListener("click", handleUserInteraction);
-    window.addEventListener("keydown", handleUserInteraction);
-
+  
+    // تعاملاتی که تقریباً همیشه معتبر شناخته می‌شن
+    window.addEventListener("click", handleInteraction);
+    window.addEventListener("touchstart", handleInteraction);
+    window.addEventListener("keydown", handleInteraction);
+    window.addEventListener("scroll", handleInteraction);
+  
     return () => {
-      window.removeEventListener("scroll", handleUserInteraction);
-      window.removeEventListener("click", handleUserInteraction);
-      window.removeEventListener("keydown", handleUserInteraction);
+      window.removeEventListener("click", handleInteraction);
+      window.removeEventListener("touchstart", handleInteraction);
+      window.removeEventListener("keydown", handleInteraction);
+      window.removeEventListener("scroll", handleInteraction);
     };
   }, []);
-
+  
+ 
   const togglePlayPause = () => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -134,6 +147,7 @@ export default function AudioPlayer() {
       <audio
         ref={audioRef}
         autoPlay
+        muted
         src={playlist[currentTrackIndex]}
         onEnded={handleTrackEnd}
       />

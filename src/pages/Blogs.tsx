@@ -24,7 +24,7 @@ const Blogs = () => {
   }, []);
   return (
     <div className="bg-[#1D1818] min-h-screen text-white">
-      <NavBarHome />
+      <NavBarHome notNeedMenu />
       <div className="w-11/12 mx-auto flex flex-col gap-12 my-12">
         {blogs.map((blog, index: number) => (
           <div

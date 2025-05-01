@@ -59,7 +59,7 @@ const Details = () => {
 
   return (
     <div className="bg-[#1D1818] min-h-screen text-white">
-      <NavBarHome />
+      <NavBarHome notNeedMenu />
       <div className="flex w-11/12 mx-auto my-12 border-b border-[#292524] py-1">
       {updatedData.map((item, index) => (
           <div key={index}>
