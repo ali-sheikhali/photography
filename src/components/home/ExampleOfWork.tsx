@@ -2,12 +2,15 @@ import SubTitle from "./SubTitle";
 import arrowLeft from "../../assets/arrow-left.svg";
 import { Link } from "react-router-dom";
 import usePhotos from "../../hooks/usePhotos";
+import { useState } from "react";
+import ImageModal from "../ImageModal";
 
 
 function ExampleOfWork() {
 
     const photos = usePhotos()
-    
+    const [selectedImage, setSelectedImage] = useState(null);
+ 
   return (
     <div className="w-full flex flex-col gap-8">
       <SubTitle title="نمونه کارهای ما" />
@@ -19,7 +22,7 @@ function ExampleOfWork() {
       </Link>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {photos.slice(0, 4).map((item) => (
-          <div className="" key={item.id}>
+          <div className="" key={item.id} onClick={()=> setSelectedImage(item.url)}>
             <img
               className="rounded-xl h-[350px] object-cover lg:h-[450px] w-full"
               src={item.url}
@@ -28,6 +31,8 @@ function ExampleOfWork() {
           </div>
         ))}
       </div>
+      <ImageModal image={selectedImage} onClose={() => setSelectedImage(null)} />
+
     </div>
   );
 }

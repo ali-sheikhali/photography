@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import ImageModal from "../ImageModal";
 
 const genreTranslations: { [key: string]: string } = {
   nature: "طبیعت",
@@ -19,7 +20,7 @@ interface Photographer {
 const PhotoGrapther: React.FC<{ photographer: Photographer }> = ({
   photographer,
 }) => {
-  
+ const [selectedImage, setSelectedImage] = useState(null) 
   const translatedGenre = genreTranslations[photographer.genre] || photographer.genre;
 
   return (
@@ -31,6 +32,7 @@ const PhotoGrapther: React.FC<{ photographer: Photographer }> = ({
             className="rounded-xl h-[250px] md:h-[350px] object-cover w-full"
             src={image}
             alt={`Portfolio ${index + 1}`}
+            onClick={() => setSelectedImage(image)} 
           />
         ))}
       </div>
@@ -47,6 +49,7 @@ const PhotoGrapther: React.FC<{ photographer: Photographer }> = ({
           <p className="text-white text-sm">{translatedGenre}</p>
         </div>
       </div>
+      <ImageModal image={selectedImage} onClose={()=> setSelectedImage(null)} />
     </div>
   );
 };

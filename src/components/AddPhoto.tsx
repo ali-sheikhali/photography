@@ -6,6 +6,7 @@ import BottomSheet from "@wldyslw/react-bottom-sheet";
 import { fetchPhoto } from "../services/fetchPhoto";
 import trash from "../assets/trash.svg";
 import { deletePhoto } from "../services/deletePhoto";
+import ImageModal from "./ImageModal";
 
 interface Photos {
   id: string;
@@ -22,6 +23,7 @@ interface BottomSheetRef {
 const AddPhoto = () => {
   const [openModal, setOpenModal] = useState(false);
   const [photos, setPhotos] = useState<Photos[]>([]);
+  const [selectedImage, setSelectedImage] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
   const bottomSheetRef = useRef<BottomSheetRef>(
     null as unknown as BottomSheetRef
@@ -77,6 +79,8 @@ const AddPhoto = () => {
                 src={photo.url}
                 alt={photo.name}
                 className="w-full h-full object-cover rounded-lg"
+                onClick={()=>setSelectedImage(photo.url)}
+
               />
               <img
                 onClick={() => handleDelete(photo.id)}
@@ -118,6 +122,8 @@ const AddPhoto = () => {
           }}
         />
       </BottomSheet>
+      <ImageModal image={selectedImage} onClose={() => setSelectedImage("")} />
+
     </div>
   );
 };
