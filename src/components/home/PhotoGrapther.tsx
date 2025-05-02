@@ -25,11 +25,11 @@ const PhotoGrapther: React.FC<{ photographer: Photographer }> = ({
 
   return (
     <div className="bg-[#1D4444] flex flex-col gap-4 p-4">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
         {photographer.portfolio.map((image, index) => (
           <img
             key={index}
-            className="rounded-xl h-[250px] md:h-[350px] object-cover w-full"
+            className="rounded-xl aspect-square md:h-[350px] object-cover w-full"
             src={image}
             alt={`Portfolio ${index + 1}`}
             onClick={() => setSelectedImage(image)} 

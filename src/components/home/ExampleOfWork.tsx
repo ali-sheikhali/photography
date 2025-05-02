@@ -20,11 +20,11 @@ function ExampleOfWork() {
           <img src={arrowLeft} alt="arrow-left" />
         </div>
       </Link>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {photos.slice(0, 4).map((item) => (
           <div className="" key={item.id} onClick={()=> setSelectedImage(item.url)}>
             <img
-              className="rounded-xl h-[350px] object-cover lg:h-[450px] w-full"
+              className="rounded-xl aspect-square object-cover lg:h-[450px] w-full"
               src={item.url}
               alt=""
             />

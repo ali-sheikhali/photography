@@ -69,11 +69,11 @@ const AddPhoto = () => {
       {loading ? (
         "چند لحظه صبر کنید"
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-4 gap-4">
           {photos.map((photo) => (
             <div
               key={photo.id}
-              className=" p-4 h-[280px] md:h-[390px] rounded-lg relative"
+              className=" p-4 aspect-square md:h-[390px] rounded-lg relative"
             >
               <img
                 src={photo.url}
