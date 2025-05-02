@@ -3,16 +3,21 @@ import wideScreenBack from "../assets/wideBackImage.png";
 import FormFiled from "../components/FormFiled";
 import * as Yup from "yup";
 import FormError from "../components/FormError";
-import { Link } from "react-router-dom";
 import MainLogin from "../components/MainLogin";
 import { loginUser } from "../services/authServices";
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 interface FormValue {
   email: string;
   password: string;
 }
 function Login() {
- 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/dashboard";
+  const auth = useContext(AuthContext);
+
   const validationSchema = Yup.object({
     email: Yup.string().required("لطفا نام کاربری را وارد کنید."),
     password: Yup.string().required("لطفا رمز را وارد کنید."),
@@ -26,7 +31,8 @@ function Login() {
     onSubmit: async (values) => {
       try {
         await loginUser(values.email, values.password);
-        window.location.href = "/dashboard";
+        auth?.login();
+        navigate(from, { replace: true });
       } catch (error) {
         console.error("Login Error:", error);  
         alert("رمز را اشتباه وارد کردید.");  

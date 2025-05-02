@@ -3,6 +3,7 @@ import { getToken, logoutUser } from "../services/authServices";
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  login: () => void;  
   logout: () => void;
 }
 
@@ -15,8 +16,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsAuthenticated(!!getToken());
   }, []);
 
+  const login = () => setIsAuthenticated(true);
+  const logout = () => {
+    logoutUser();
+    setIsAuthenticated(false);
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, logout: logoutUser }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
